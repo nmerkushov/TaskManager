@@ -1,0 +1,53 @@
+﻿<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" (click)="close()">&times;</button>
+			<h4 class="modal-title">Добавить новый проект</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<label class="control-label col-sm-5" for="name">Название проекта:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="name" #name="ngModel" placeholder="Название проекта" [(ngModel)]="newProject.projectName" [ngModelOptions]="{standalone: true}" required ng-trim="true" #ctrl="ngModel" />
+				</div>
+				<div *ngIf="name.invalid && !isValid" class="alert alert-danger">
+					<div *ngIf="name.errors.required">
+						<b>Название</b> не может быть пустым
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="bank">Банк:</label>
+				<div class="col-sm-7">
+					<select class="form-control" id="bank" placeholder="Банк" style="width: 100%;" [(ngModel)]="newProject.bankID" #selectElem (change)="this.newProject.BankID=selectElem.value">
+						<option *ngFor="let bank of banks" value="{{bank.bankID}}">{{bank.bankName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="contactPerson">Контактное лицо:</label>
+				<div class="col-sm-7">
+					<select class="form-control" id="contactPerson" placeholder="Контактное лицо" style="width: 100%;" [(ngModel)]="newProject.contactPersonID"  #selectElem (change)="this.newProject.ContactPersonID=selectElem.value">
+						<option *ngFor="let person of persons" value="{{person.personID}}">{{person.fio}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="director">Директор:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="director" placeholder="Директор" [(ngModel)]="newProject.director" [ngModelOptions]="{standalone: true}" ng-trim="true" />
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="phoneFaxes">Телефон/факс:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="phoneFaxes" placeholder="Телефон/факс:" [(ngModel)]="newProject.phoneFaxes" [ngModelOptions]="{standalone: true}" ng-trim="true" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" (click)="confirm()">Добавить</button>
+			<button type="button" class="btn btn-default" (click)="close()">Отменить</button>
+		</div>
+	</div>
+</div>

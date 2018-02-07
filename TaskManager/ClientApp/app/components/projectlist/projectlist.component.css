@@ -1,0 +1,9 @@
+﻿.rowcont {
+	position: relative !important;
+}
+
+.button-bottomright {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
