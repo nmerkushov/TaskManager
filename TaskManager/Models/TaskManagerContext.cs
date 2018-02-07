@@ -22,7 +22,7 @@ namespace TaskManager.Models
 			//modelBuilder.Entity<Project>().HasMany(x => x.Tasks).WithOne().HasPrincipalKey(x => x.ProjectID);
 			modelBuilder.Entity<Project>().HasOne(x => x.Bank).WithMany().HasForeignKey(x => x.BankID);
 			modelBuilder.Entity<Project>().HasOne(x => x.ContactPerson).WithMany().HasForeignKey(x => x.ContactPersonID);
-			modelBuilder.Entity<Project>().Property(x => x.BankID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqProjectID");
+			modelBuilder.Entity<Project>().Property(x => x.ProjectID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqProjectID");
 
 			modelBuilder.Entity<Task>().ToTable("Task");
 			modelBuilder.Entity<Task>().HasKey(x => x.TaskID);
