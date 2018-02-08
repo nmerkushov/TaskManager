@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { DevExtremeModule } from 'devextreme-angular';
 import { AppComponent } from './components/app/app.component';
 import { ProjectListComponent } from './components/projectlist/projectlist.component';
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
@@ -21,6 +22,7 @@ import { DeleteProjectDialogComponent } from './components/projectlist/deletepro
         CommonModule,
         HttpModule,
 		FormsModule,
+		DevExtremeModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'projectlist', pathMatch: 'full' },
 			{ path: 'projectlist', component:  ProjectListComponent },

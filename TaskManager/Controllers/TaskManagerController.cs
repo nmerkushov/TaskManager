@@ -69,13 +69,13 @@ namespace TaskManager.Controllers
 			if (project.BankID == 0)
 			{
 				project.BankID = null;
-				project.Bank = null;
 			}
 			if (project.ContactPersonID == 0)
 			{
 				project.ContactPersonID = null;
-				project.ContactPerson = null;
 			}
+			project.Bank = null;
+			project.ContactPerson = null;
 			_context.Projects.Update(project);
 			_context.SaveChanges();
 			return Ok();

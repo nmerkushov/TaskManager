@@ -4,32 +4,54 @@
 		<div class="col-sm-6"></div>
 		<div class="col-sm-2 bottom-right button-bottomright"><button class="btn btn-primary" (click)="add_new_project()">Добавить новый проект</button></div>
 	</div>
-	<div class=""></div>
-	<table class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th>ID Проекта</th>
-				<th>Название проекта</th>
-				<th>Банк</th>
-				<th>Контактное лицо</th>
-				<th>Директор</th>
-				<th>Телефон/факс</th>
-				<th></th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let project of projects">
-				<td>{{project.projectID}}</td>
-				<td>{{project.projectName}}</td>
-				<td>{{project.bankName}}</td>
-				<td>{{project.contactPersonName}}</td>
-				<td>{{project.director}}</td>
-				<td>{{project.phoneFaxes}}</td>
-				<td><button class="btn btn-default btn-sm">Список задач</button></td>
-				<td><button class="btn btn-warning btn-sm" (click)="edit_project(project)">Изменить</button></td>
-				<td><button class="btn btn-danger btn-sm" (click)="delete_project(project)">Удалить</button></td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="row">
+		<div class="col-sm-12">
+			<dx-data-grid #projectGrid
+						  id="projectGridContainer"
+						  [dataSource]="projects"
+						  [allowColumnReordering]="true"
+						  [allowColumnResizing]="true"
+						  [columnResizingMode]="nextColumn"
+						  [columnAutoWidth]="true"
+						  [columnMinWidth]="20">
+
+				<dxo-filter-row [visible]="true"
+								[applyFilter]="auto"></dxo-filter-row>
+				<!--<dxo-selection mode="multiple"></dxo-selection>-->
+				<dxo-header-filter [visible]="true"></dxo-header-filter>
+				<dxo-search-panel [visible]="true"
+								  [width]="240"
+								  placeholder="Поиск..."></dxo-search-panel>
+				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+				<dxi-column dataField="projectID" caption="ID"></dxi-column>
+				<dxi-column dataField="projectName" caption="Название проекта"></dxi-column>
+				<dxi-column dataField="bankName" caption="Банк"></dxi-column>
+				<dxi-column dataField="contactPersonName" caption="Контактное лицо"></dxi-column>
+				<dxi-column dataField="director" caption="Директор"></dxi-column>
+				<dxi-column dataField="phoneFaxes" caption="Телефон/факс"></dxi-column>
+
+				<dxi-column cellTemplate="showTaskTemplate"></dxi-column>
+				<dxi-column cellTemplate="editTemplate"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
+
+				<dxo-paging [pageSize]="10"></dxo-paging>
+				<dxo-pager [showPageSizeSelector]="true"
+						   [allowedPageSizes]="[10, 25, 50]"
+						   [showInfo]="true">
+				</dxo-pager>    
+
+				<div *dxTemplate="let p of 'showTaskTemplate'">
+					<button class="btn btn-default btn-sm">Список задач</button>
+				</div>
+				<div *dxTemplate="let p of 'editTemplate'">
+					<button class="btn btn-warning btn-sm" (click)="edit_project(p.data)">Изменить</button>
+				</div>
+				<div *dxTemplate="let p of 'deleteTemplate'">
+					<button class="btn btn-danger btn-sm" (click)="delete_project(p.data)">Удалить</button>
+				</div>
+			</dx-data-grid>
+		</div>
+	</div>
 </div>

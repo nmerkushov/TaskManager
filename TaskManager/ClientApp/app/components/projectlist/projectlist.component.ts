@@ -1,6 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
+import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
 import { Project } from '../shared/models/project';
 import { TaskManagerService } from '../shared/services/taskManager.service';
@@ -14,6 +15,7 @@ import { DeleteProjectDialogComponent } from './deleteproject.dialog/deleteproje
 	styleUrls: ['./projectlist.component.css']
 })
 export class ProjectListComponent {
+	@ViewChild('projectGrid') projectGrid: DxDataGridComponent;
 	title: string;
 	projects: Project[] = new Array<Project>();
 

@@ -26,6 +26,8 @@
 		"bootstrap": "^4.0.0-alpha.6",
 		"css": "2.2.1",
 		"css-loader": "0.28.4",
+		"devextreme": "^17.2.5",
+		"devextreme-angular": "^17.2.5",
 		"es6-shim": "0.35.3",
 		"event-source-polyfill": "0.0.9",
 		"expose-loader": "0.7.3",
@@ -36,8 +38,8 @@
 		"jquery": "3.2.1",
 		"json-loader": "0.5.4",
 		"ng2-bootstrap-modal": "^1.0.1",
-		"preboot": "4.5.2",
 		"popper.js": "1.12.3",
+		"preboot": "4.5.2",
 		"raw-loader": "0.5.1",
 		"reflect-metadata": "0.1.10",
 		"rxjs": "5.4.2",
@@ -60,6 +62,8 @@
 		"karma-chrome-launcher": "2.2.0",
 		"karma-cli": "1.0.1",
 		"karma-jasmine": "1.1.0",
-		"karma-webpack": "2.0.3"
+		"karma-webpack": "2.0.3",
+		"devextreme": "^17.2.5",
+		"devextreme-angular": "^17.2.5"
 	}
 }
