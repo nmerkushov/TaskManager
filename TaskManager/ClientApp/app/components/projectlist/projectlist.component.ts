@@ -5,6 +5,8 @@ import 'rxjs/Rx';
 import { Project } from '../shared/models/project';
 import { TaskManagerService } from '../shared/services/taskManager.service';
 import { AddNewProjectDialogComponent } from './addnewproject.dialog/addnewproject.dialog.component';
+import { EditProjectDialogComponent } from './editproject.dialog/editproject.dialog.component';
+import { DeleteProjectDialogComponent } from './deleteproject.dialog/deleteproject.dialog.component';
 
 @Component({
 	selector: 'projectlist',
@@ -38,6 +40,41 @@ export class ProjectListComponent {
 					}
 					)
 					.catch(err => console.error(err));
+			}
+			else {
+				console.info('Cancel dialog');
+			}
+		});
+	}
+
+	edit_project(project: Project) {
+		const disposable = this.dialogService.addDialog(EditProjectDialogComponent, { project: project }).subscribe((project) => {
+			if (project) {
+				this.service.editProject(project)
+					.then(res => {
+						console.info('Update project:' + JSON.stringify(project));
+						this.fillDatasource();
+					}
+					)
+					.catch(err => console.error(err));
+			}
+			else {
+				console.info('Cancel dialog');
+			}
+		});
+	}
+
+	delete_project(project: Project) {
+		const disposable = this.dialogService.addDialog(DeleteProjectDialogComponent, { project: project }).subscribe((isConfirmed) => {
+			if (isConfirmed) {
+				this.service.deleteProject(project)
+					.then(res => {
+						console.info('Delete project:' + JSON.stringify(project));
+						this.fillDatasource();
+					}
+					)
+					.catch(err => console.error(err));
+
 			}
 			else {
 				console.info('Cancel dialog');

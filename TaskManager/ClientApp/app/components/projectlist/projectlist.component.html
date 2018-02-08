@@ -27,8 +27,8 @@
 				<td>{{project.director}}</td>
 				<td>{{project.phoneFaxes}}</td>
 				<td><button class="btn btn-default btn-sm">Список задач</button></td>
-				<td><button class="btn btn-warning btn-sm">Изменить</button></td>
-				<td><button class="btn btn-danger btn-sm">Удалить</button></td>
+				<td><button class="btn btn-warning btn-sm" (click)="edit_project(project)">Изменить</button></td>
+				<td><button class="btn btn-danger btn-sm" (click)="delete_project(project)">Удалить</button></td>
 			</tr>
 		</tbody>
 	</table>

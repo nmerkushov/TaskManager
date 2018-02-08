@@ -5,8 +5,7 @@ namespace TaskManager.Models
 	public class Task
 	{
 		public int TaskID { get; set; }
-		public long ProjectID { get; set; }
-		//public Project Project { get; set; }
+		public int ProjectID { get; set; }
 		public string TaskName { get; set; }
 		public decimal Priority { get; set; }
 		public int? ResponsiblePersonID { get; set; }

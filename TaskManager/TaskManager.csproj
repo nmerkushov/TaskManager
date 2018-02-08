@@ -25,6 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\projectlist\deleteproject.dialog\deleteproject.dialog.component.ts" />
+    <None Remove="ClientApp\app\components\projectlist\editproject.dialog\editproject.dialog.component.ts" />
     <None Remove="ClientApp\app\components\shared\models\person.ts" />
     <None Remove="ClientApp\app\components\shared\models\project.ts" />
     <None Remove="ClientApp\app\components\shared\models\task.ts" />
@@ -33,12 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\projectlist\editproject.dialog\" />
-    <Folder Include="ClientApp\app\components\projectlist\deleteproject.dialog\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\projectlist\addnewproject.dialog\addnewproject.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projectlist\deleteproject.dialog\deleteproject.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\projectlist\editproject.dialog\editproject.dialog.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\projectlist\projectlist.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\bank.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\person.ts" />

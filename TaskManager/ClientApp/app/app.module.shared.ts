@@ -6,12 +6,16 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
 import { ProjectListComponent } from './components/projectlist/projectlist.component';
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
+import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
+import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		ProjectListComponent,
-		AddNewProjectDialogComponent
+		AddNewProjectDialogComponent,
+		EditProjectDialogComponent,
+		DeleteProjectDialogComponent
 	],
     imports: [
         CommonModule,

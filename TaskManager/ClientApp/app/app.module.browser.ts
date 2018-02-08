@@ -6,6 +6,8 @@ import { AppComponent } from './components/app/app.component';
 import { TaskManagerService } from './components/shared/services/taskManager.service';
 import { ProjectListComponent } from './components/projectlist/projectlist.component';
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
+import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
+import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
 
 @NgModule({
 	bootstrap: [AppComponent],
@@ -19,7 +21,9 @@ import { AddNewProjectDialogComponent } from './components/projectlist/addnewpro
 		TaskManagerService 
 	],
 	entryComponents: [
-		AddNewProjectDialogComponent
+		AddNewProjectDialogComponent,
+		EditProjectDialogComponent,
+		DeleteProjectDialogComponent
 	]
 })
 export class AppModule {

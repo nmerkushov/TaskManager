@@ -24,6 +24,16 @@ export class TaskManagerService {
 		return this.http.post(url, project).toPromise();
 	}
 
+	editProject(project: Project) {
+		const url = '/taskmanager/editproject';
+		return this.http.post(url, project).toPromise();
+	}
+
+	deleteProject(project: Project) {
+		const url = '/taskmanager/deleteproject';
+		return this.http.post(url, project).toPromise();
+	}
+
 	getBanks() {
 		return this.http.get('/taskmanager/getbanks')
 			.map((response: Response) => {
@@ -39,19 +49,4 @@ export class TaskManagerService {
 			})
 			.toPromise();
 	}
-
-	//addNewBook(book: Book) {
-	//	const url = '/bookstore/addnewbook';
-	//	return this.http.post(url, book).toPromise();
-	//}
-
-	//editBook(book: Book) {
-	//	const url = '/bookstore/editbook';
-	//	return this.http.post(url, book).toPromise();
-	//}
-
-	//deleteBook(book: Book) {
-	//	const url = '/bookstore/deletebook';
-	//	return this.http.post(url, book).toPromise();
-	//}
 }

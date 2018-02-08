@@ -25,9 +25,9 @@ namespace TaskManager.Controllers
 		{
 			var projects = _context.Projects
 				.Include(p => p.Tasks)
-			.Include(p => p.Bank)
-			.Include(p => p.ContactPerson)
-			.ToList();
+				.Include(p => p.Bank)
+				.Include(p => p.ContactPerson)
+				.ToList();
 
 			return new ObjectResult(projects);
 		}
@@ -57,11 +57,36 @@ namespace TaskManager.Controllers
 			{
 				project.ContactPersonID = null;
 			}
-			
 			_context.Projects.Add(project);
-
 			_context.SaveChanges();
 
+			return Ok();
+		}
+
+		[HttpPost]
+		public IActionResult EditProject([FromBody]Project project)
+		{
+			if (project.BankID == 0)
+			{
+				project.BankID = null;
+				project.Bank = null;
+			}
+			if (project.ContactPersonID == 0)
+			{
+				project.ContactPersonID = null;
+				project.ContactPerson = null;
+			}
+			_context.Projects.Update(project);
+			_context.SaveChanges();
+			return Ok();
+		}
+
+
+		[HttpPost]
+		public IActionResult DeleteProject([FromBody]Project project)
+		{
+			_context.Projects.Remove(project);
+			_context.SaveChanges();
 			return Ok();
 		}
 	}

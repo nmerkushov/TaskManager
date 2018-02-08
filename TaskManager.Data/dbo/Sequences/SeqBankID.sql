@@ -1,0 +1,6 @@
+﻿CREATE SEQUENCE [dbo].[SeqBankID]
+    AS BIGINT
+    START WITH 5
+    INCREMENT BY 1
+    MINVALUE 4;
+

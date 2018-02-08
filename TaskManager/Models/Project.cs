@@ -4,12 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TaskManager.Models
 {
 	public class Project
-	{
-		
-		public long ProjectID { get; set; }
+	{		
+		public int ProjectID { get; set; }
 		public string ProjectName { get; set; }
-
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int? BankID { get; set; }
 		public Bank Bank { get; set; }
 		public int? ContactPersonID { get; set; }
