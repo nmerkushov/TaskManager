@@ -1,0 +1,71 @@
+﻿<div class="container">
+	<div class="row rowcont">
+		<h2 class="col-sm-10">Проект: {{project.projectName}}</h2>
+		<div class="col-sm-2 button-bottomright"><a class="btn btn-primary" href="/projectlist">Вернуться к списку проектов</a></div>
+	</div>
+	<div class="row rowcont">
+		<h4 class="col-sm-12">Банк: {{project.bankName}}</h4>
+	</div>
+	<div class="row rowcont">
+		<div class="col-sm-4">Контактное лицо: {{project.contactPersonName}}</div>
+		<div class="col-sm-8">Директор: {{project.director}}</div>
+	</div>
+	<div class="row rowcont">
+		<div class="col-sm-12">{{project.phoneFaxes}}</div>
+	</div>
+	<div class="row rowcont">
+		<div class="col-sm-4"></div>
+		<h2 class="col-sm-6">Список задач</h2>
+		<div class="col-sm-2 bottom-right button-bottomright"><button class="btn btn-primary" (click)="add_new_task()">Добавить новый задачу</button></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<dx-data-grid #projectGrid
+						  id="taskGridContainer"
+						  [dataSource]="tasks"
+						  [allowColumnReordering]="true"
+						  [allowColumnResizing]="true"
+						  [columnResizingMode]="nextColumn"
+						  [columnAutoWidth]="true"
+						  [columnMinWidth]="20">
+
+				<dxo-filter-row [visible]="true"
+								[applyFilter]="auto"></dxo-filter-row>
+
+				<dxo-header-filter [visible]="true"></dxo-header-filter>
+				<dxo-search-panel [visible]="true"
+								  [width]="240"
+								  placeholder="Поиск..."></dxo-search-panel>
+				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+				<dxi-column cellTemplate="editTemplate"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
+
+				<dxi-column dataField="taskID" caption="ID"></dxi-column>
+				<dxi-column dataField="taskName" caption="Название задачи"></dxi-column>
+				<dxi-column dataField="priority" caption="Приоритет"></dxi-column>
+				<dxi-column dataField="responsiblePersonName" caption="Ответственный"></dxi-column>
+				<dxi-column dataField="upToDate" caption="В срок до"></dxi-column>
+				<dxi-column dataField="statusName" caption="Статус"></dxi-column>
+				<dxi-column dataField="notes" caption="Примечание"></dxi-column>
+				<dxi-column dataField="responseAction" caption="Ответное действие"></dxi-column>
+				<dxi-column dataField="responsiblePersonPhoneFaxes" caption="Тел. Отв-го"></dxi-column>
+				<dxi-column dataField="responsiblePersonEmails" caption="E-mail Отв-го"></dxi-column>
+
+				<dxo-paging [pageSize]="10"></dxo-paging>
+				<dxo-pager [showPageSizeSelector]="true"
+						   [allowedPageSizes]="[10, 25, 50]"
+						   [showInfo]="true">
+				</dxo-pager>
+
+				<div *dxTemplate="let t of 'editTemplate'">
+					<button class="btn btn-warning btn-sm"><span class="dx-icon-edit" (click)="edit_task(t.data)"></span></button>
+				</div>
+				<div *dxTemplate="let t of 'deleteTemplate'">
+					<button class="btn btn-danger btn-sm"><span class="dx-icon-trash" (click)="delete_task(t.data)"></span></button>
+				</div>
+			</dx-data-grid>
+		</div>
+	</div>
+</div>

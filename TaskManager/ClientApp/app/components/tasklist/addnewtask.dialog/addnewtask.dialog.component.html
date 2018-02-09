@@ -1,0 +1,67 @@
+﻿<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" (click)="close()">&times;</button>
+			<h4 class="modal-title">Добавить новую задачу</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<label class="control-label col-sm-5" for="name">Название задачи:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="name" #name="ngModel" placeholder="Название задачи" [(ngModel)]="newTask.taskName" [ngModelOptions]="{standalone: true}" required ng-trim="true" #ctrl="ngModel" />
+				</div>
+				<div *ngIf="name.invalid && !isValid" class="alert alert-danger">
+					<div *ngIf="name.errors.required">
+						<b>Название</b> не может быть пустым
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="priority">Приоритет:</label>
+				<div class="col-sm-7">
+					<select class="form-control" id="priority" placeholder="Приоритет" style="width: 100%;" [(ngModel)]="newTask.priority" #selectElemP (change)="this.newTask.priority=selectElemP.value">
+						<option *ngFor="let p of priorities" value="{{p}}">{{p}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="responsibePerson">Ответственный:</label>
+				<div class="col-sm-7">
+					<select class="form-control" id="responsibePerson" placeholder="Ответственный" style="width: 100%;" [(ngModel)]="newTask.responsiblePersonID" #selectElemRP (change)="this.newTask.responsiblePersonID=selectElemRP.value">
+						<option *ngFor="let person of persons" value="{{person.personID}}">{{person.fio}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="upToDate">В срок до:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="upToDate" placeholder="В срок до" [(ngModel)]="newTask.upToDate" [ngModelOptions]="{standalone: true}" ng-trim="true" />
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="status">Статус задачи:</label>
+				<div class="col-sm-7">
+					<select class="form-control" id="status" placeholder="Статус задачи" style="width: 100%;" [(ngModel)]="newTask.statusID" #selectElemS (change)="this.newTask.statusID=selectElemS.value">
+						<option *ngFor="let taskStatus of taskStatuses" value="{{taskStatus.taskStatusID}}">{{taskStatus.taskStatusName}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="notes">Примечание:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="notes" placeholder="Примечание" [(ngModel)]="newTask.notes" [ngModelOptions]="{standalone: true}" ng-trim="true" />
+				</div>
+			</div>
+			<div class="row">
+				<label class="control-label col-sm-5" for="responseAction">Ответное действие:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="responseAction" placeholder="Ответное действие" [(ngModel)]="newTask.responseAction" [ngModelOptions]="{standalone: true}" ng-trim="true" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" (click)="confirm()">Добавить</button>
+			<button type="button" class="btn btn-default" (click)="close()">Отменить</button>
+		</div>
+	</div>
+</div>

@@ -27,7 +27,7 @@
 			<div class="row">
 				<label class="control-label col-sm-5" for="contactPerson">Контактное лицо:</label>
 				<div class="col-sm-7">
-					<select class="form-control" id="contactPerson" placeholder="Контактное лицо" style="width: 100%;" [(ngModel)]="newProject.contactPersonID"  #selectElemCP (change)="this.newProject.ContactPersonID=selectElemCP.value">
+					<select class="form-control" id="contactPerson" placeholder="Контактное лицо" style="width: 100%;" [(ngModel)]="newProject.contactPersonID"  #selectElemCP (change)="this.newProject.contactPersonID=selectElemCP.value">
 						<option *ngFor="let person of persons" value="{{person.personID}}">{{person.fio}}</option>
 					</select>
 				</div>

@@ -9,6 +9,10 @@ import { ProjectListComponent } from './components/projectlist/projectlist.compo
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
 import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
 import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
+import { TaskListComponent } from './components/tasklist/tasklist.component';
+import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
+import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
+import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
 
 @NgModule({
 	declarations: [
@@ -16,7 +20,11 @@ import { DeleteProjectDialogComponent } from './components/projectlist/deletepro
 		ProjectListComponent,
 		AddNewProjectDialogComponent,
 		EditProjectDialogComponent,
-		DeleteProjectDialogComponent
+		DeleteProjectDialogComponent,
+		TaskListComponent,
+		AddNewTaskDialogComponent,
+		EditTaskDialogComponent,
+		DeleteTaskDialogComponent
 	],
     imports: [
         CommonModule,
@@ -25,7 +33,8 @@ import { DeleteProjectDialogComponent } from './components/projectlist/deletepro
 		DevExtremeModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'projectlist', pathMatch: 'full' },
-			{ path: 'projectlist', component:  ProjectListComponent },
+			{ path: 'projectlist', component: ProjectListComponent },
+			{ path: 'tasklist/:projectID', component: TaskListComponent },
             { path: '**', redirectTo: 'projectlist' }
 		])
 	]

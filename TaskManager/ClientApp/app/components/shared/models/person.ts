@@ -2,13 +2,13 @@
 	personID: number;
 	fio: string;
 	phoneFaxes: string;
-	email: string;
+	emails: string;
 
 	constructor(personID: number, fio: string) {
 		this.personID = personID;
 		this.fio = fio;
 		this.phoneFaxes = "";
-		this.email = "";
+		this.emails = "";
 	}
 }
 

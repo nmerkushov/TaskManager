@@ -17,13 +17,17 @@
 
 				<dxo-filter-row [visible]="true"
 								[applyFilter]="auto"></dxo-filter-row>
-				<!--<dxo-selection mode="multiple"></dxo-selection>-->
+				
 				<dxo-header-filter [visible]="true"></dxo-header-filter>
 				<dxo-search-panel [visible]="true"
 								  [width]="240"
 								  placeholder="Поиск..."></dxo-search-panel>
 				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
 				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+				<dxi-column cellTemplate="editTemplate"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
+				<dxi-column cellTemplate="showTaskTemplate"></dxi-column>
 
 				<dxi-column dataField="projectID" caption="ID"></dxi-column>
 				<dxi-column dataField="projectName" caption="Название проекта"></dxi-column>
@@ -32,24 +36,20 @@
 				<dxi-column dataField="director" caption="Директор"></dxi-column>
 				<dxi-column dataField="phoneFaxes" caption="Телефон/факс"></dxi-column>
 
-				<dxi-column cellTemplate="showTaskTemplate"></dxi-column>
-				<dxi-column cellTemplate="editTemplate"></dxi-column>
-				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
-
 				<dxo-paging [pageSize]="10"></dxo-paging>
 				<dxo-pager [showPageSizeSelector]="true"
 						   [allowedPageSizes]="[10, 25, 50]"
 						   [showInfo]="true">
 				</dxo-pager>    
 
-				<div *dxTemplate="let p of 'showTaskTemplate'">
-					<button class="btn btn-default btn-sm">Список задач</button>
-				</div>
 				<div *dxTemplate="let p of 'editTemplate'">
-					<button class="btn btn-warning btn-sm" (click)="edit_project(p.data)">Изменить</button>
+					<button class="btn btn-warning btn-sm" (click)="edit_project(p.data)"><span class="dx-icon-edit"></span></button>
 				</div>
 				<div *dxTemplate="let p of 'deleteTemplate'">
-					<button class="btn btn-danger btn-sm" (click)="delete_project(p.data)">Удалить</button>
+					<button class="btn btn-danger btn-sm" (click)="delete_project(p.data)"><span class="dx-icon-trash"></span></button>
+				</div>
+				<div *dxTemplate="let p of 'showTaskTemplate'">
+					<a class="btn btn-default btn-sm dx-icon-menu" href="tasklist/{{p.data.projectID}}"></a>
 				</div>
 			</dx-data-grid>
 		</div>

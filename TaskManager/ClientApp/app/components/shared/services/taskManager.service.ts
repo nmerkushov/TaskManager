@@ -4,6 +4,8 @@ import 'rxjs/Rx';
 import { Project } from '../models/project';
 import { Bank } from '../models/bank';
 import { Person } from '../models/person';
+import { Task } from '../models/task';
+import { TaskStatus } from '../models/taskStatus';
 
 @Injectable()
 export class TaskManagerService {
@@ -48,5 +50,44 @@ export class TaskManagerService {
 				return response.json() as Person[];
 			})
 			.toPromise();
+	}
+
+	getTasks(projectID : number) {
+		return this.http.get(`/taskmanager/gettasks/${projectID}`)
+			.map((response: Response) => {
+				return response.json() as Task[];
+			})
+			.toPromise();
+	}
+
+	getProjectByID(projectID: number) {
+		return this.http.get(`/taskmanager/getprojectbyid/${projectID}`)
+			.map((response: Response) => {
+				return response.json() as Project;
+			})
+			.toPromise();
+	}
+
+	getTaskStatuses() {
+		return this.http.get('/taskmanager/gettaskstatuses')
+			.map((response: Response) => {
+				return response.json() as TaskStatus[];
+			})
+			.toPromise();
+	}
+
+	addNewTask(task: Task) {
+		const url = '/taskmanager/addnewtask';
+		return this.http.post(url, task).toPromise();
+	}
+
+	editTask(task: Task) {
+		const url = '/taskmanager/edittask';
+		return this.http.post(url, task).toPromise();
+	}
+
+	deleteTask(task: Task) {
+		const url = '/taskmanager/deletetask';
+		return this.http.post(url, task).toPromise();
 	}
 }

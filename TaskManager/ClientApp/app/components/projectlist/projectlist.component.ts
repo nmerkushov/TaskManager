@@ -1,5 +1,6 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
@@ -19,7 +20,7 @@ export class ProjectListComponent {
 	title: string;
 	projects: Project[] = new Array<Project>();
 
-	constructor(private service: TaskManagerService, private dialogService: DialogService) {
+	constructor(private service: TaskManagerService, private dialogService: DialogService, private router: Router) {
 		this.title = 'Список проектов';
 		this.fillDatasource();
 	}
@@ -82,6 +83,10 @@ export class ProjectListComponent {
 				console.info('Cancel dialog');
 			}
 		});
+	}
+
+	show_tasks(projectID: number) {
+		this.router.navigate(['/tasklist', projectID]);
 	}
 }
 

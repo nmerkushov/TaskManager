@@ -32,6 +32,10 @@
     <None Remove="ClientApp\app\components\shared\models\task.ts" />
     <None Remove="ClientApp\app\components\shared\models\taskStatus.ts" />
     <None Remove="ClientApp\app\components\shared\services\taskManager.service.ts" />
+    <None Remove="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
+    <None Remove="ClientApp\app\components\tasklist\deletetask.dialog\deletetask.dialog.component.ts" />
+    <None Remove="ClientApp\app\components\tasklist\edittask.dialog\edittask.dialog.component.ts" />
+    <None Remove="ClientApp\app\components\tasklist\tasklist.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +49,10 @@
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\task.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\taskStatus.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\taskManager.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tasklist\deletetask.dialog\deletetask.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tasklist\edittask.dialog\edittask.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tasklist\tasklist.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
