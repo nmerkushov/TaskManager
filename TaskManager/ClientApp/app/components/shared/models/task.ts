@@ -12,6 +12,7 @@
 	statusName: string;
 	notes: string;
 	responseAction: string;
+	rowColor: string;
 
 	constructor() {
 		this.taskID = 0;
@@ -27,6 +28,7 @@
 		this.statusName = "";
 		this.notes = "";
 		this.responseAction = "";
+		this.rowColor = "#ffffff";
 	}
 }
 

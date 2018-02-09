@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { Title } from '@angular/platform-browser';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { DxDataGridComponent } from 'devextreme-angular';
+import { DxDataGridComponent, DxColorBoxComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
 import { Project } from '../shared/models/project';
 import { Task } from '../shared/models/task';
@@ -18,11 +18,11 @@ import { DeleteTaskDialogComponent } from './deletetask.dialog/deletetask.dialog
 	styleUrls: ['../shared/common.css']
 })
 export class TaskListComponent {
-	@ViewChild('taskGrid') projectGrid: DxDataGridComponent;
+	@ViewChild('taskGrid') taskGrid: DxDataGridComponent;
+	@ViewChild('colorBox') colorBox: DxColorBoxComponent;
 	projectID: number;
 	project: Project = new Project();
 	tasks: Task[] = new Array<Task>();
-
 
 	constructor(private service: TaskManagerService, private dialogService: DialogService, private route: ActivatedRoute, private titleService: Title) {
 		titleService.setTitle('Список задач');
@@ -100,6 +100,33 @@ export class TaskListComponent {
 			}
 		});
 	}
+
+	onRowPrepared(e: any) {
+		if (e.rowType == "data") {
+			if (e.data.rowColor == '') {
+				e.rowElement.bgColor = '#ffffff';
+			}
+			else {
+				e.rowElement.bgColor = e.data.rowColor;
+			}
+		}
+	}
+
+	onChangeColor(e: any)
+	{
+		for (var t of this.taskGrid.selectedRowKeys) {
+			t.rowColor = this.colorBox.value;
+			this.service.editTask(t)
+				.then(res => {
+					console.info('Update task:' + JSON.stringify(t));
+				}
+				)
+				.catch(err => console.error(err));
+		}
+		this.taskGrid.instance.clearSelection();
+		this.taskGrid.instance.refresh();
+	}
+
 }
 
 

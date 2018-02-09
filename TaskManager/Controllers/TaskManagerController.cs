@@ -178,6 +178,7 @@ namespace TaskManager.Controllers
 					dbTask.Status = null;
 					dbTask.Notes = task.Notes;
 					dbTask.ResponseAction = task.ResponseAction;
+					dbTask.RowColor = task.RowColor;
 
 					_context.Projects.Update(project);
 					_context.SaveChanges();
