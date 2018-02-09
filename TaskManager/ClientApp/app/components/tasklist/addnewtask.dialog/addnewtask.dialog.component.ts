@@ -13,7 +13,7 @@ import { Person } from '../../shared/models/person';
 export class AddNewTaskDialogComponent extends DialogComponent<null, Task> {
 	newTask: Task;
 	isValid: boolean = true;
-	taskStatuses: TaskStatus[] = new Array<TaskStatus>(new TaskStatus(0, "Не выбран"));
+	taskStatuses: TaskStatus[] = new Array<TaskStatus>(new TaskStatus(0, "Новый"));
 	persons: Person[] = new Array<Person>(new Person(0, "Не выбран"));
 	priorities: number[] = new Array<number>(1, 2, 3, 4, 5);
 
@@ -28,7 +28,7 @@ export class AddNewTaskDialogComponent extends DialogComponent<null, Task> {
 		this.service.getTaskStatuses()
 			.then(res => {
 				this.taskStatuses = res;
-				this.taskStatuses.push(new TaskStatus(0, "Не выбран"));
+				this.taskStatuses.push(new TaskStatus(0, "Новый"));
 				this.newTask.statusID = 0;
 			})
 			.catch(error => console.error(error));
