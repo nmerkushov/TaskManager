@@ -34,6 +34,7 @@ import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dial
         RouterModule.forRoot([
             { path: '', redirectTo: 'projectlist', pathMatch: 'full' },
 			{ path: 'projectlist', component: ProjectListComponent },
+			{ path: 'tasklist', redirectTo: 'tasklist/0' },
 			{ path: 'tasklist/:projectID', component: TaskListComponent },
             { path: '**', redirectTo: 'projectlist' }
 		])

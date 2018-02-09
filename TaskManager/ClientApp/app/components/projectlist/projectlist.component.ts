@@ -1,5 +1,6 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
@@ -13,15 +14,14 @@ import { DeleteProjectDialogComponent } from './deleteproject.dialog/deleteproje
 @Component({
 	selector: 'projectlist',
 	templateUrl: './projectlist.component.html',
-	styleUrls: ['./projectlist.component.css']
+	styleUrls: ['../shared/common.css']
 })
 export class ProjectListComponent {
 	@ViewChild('projectGrid') projectGrid: DxDataGridComponent;
-	title: string;
 	projects: Project[] = new Array<Project>();
 
-	constructor(private service: TaskManagerService, private dialogService: DialogService, private router: Router) {
-		this.title = 'Список проектов';
+	constructor(private service: TaskManagerService, private dialogService: DialogService, private router: Router, private titleService: Title) {
+		titleService.setTitle('Список проектов');
 		this.fillDatasource();
 	}
 

@@ -1,6 +1,7 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
@@ -14,18 +15,17 @@ import { DeleteTaskDialogComponent } from './deletetask.dialog/deletetask.dialog
 @Component({
 	selector: 'tasklist',
 	templateUrl: './tasklist.component.html',
-	styleUrls: ['./tasklist.component.css']
+	styleUrls: ['../shared/common.css']
 })
 export class TaskListComponent {
 	@ViewChild('taskGrid') projectGrid: DxDataGridComponent;
-	title: string;
 	projectID: number;
 	project: Project = new Project();
 	tasks: Task[] = new Array<Task>();
 
 
-	constructor(private service: TaskManagerService, private dialogService: DialogService, private route: ActivatedRoute) {
-		this.title = 'Список задач';
+	constructor(private service: TaskManagerService, private dialogService: DialogService, private route: ActivatedRoute, private titleService: Title) {
+		titleService.setTitle('Список задач');
 	}
 
 	private ngOnInit() {
