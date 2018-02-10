@@ -1,0 +1,25 @@
+﻿<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" (click)="close()">&times;</button>
+			<h4 class="modal-title">Редактировать банк</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<label class="control-label col-sm-5" for="name">Название банка:</label>
+				<div class="col-sm-7">
+					<input type="text" class="form-control" id="name" #name="ngModel" placeholder="Название банка" [(ngModel)]="bank.bankName" [ngModelOptions]="{standalone: true}" required ng-trim="true" #ctrl="ngModel" />
+				</div>
+				<div *ngIf="name.invalid && !isValid" class="alert alert-danger">
+					<div *ngIf="name.errors.required">
+						<b>Название</b> не может быть пустым
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" (click)="confirm()">Изменить данные</button>
+			<button type="button" class="btn btn-default" (click)="close()">Отменить</button>
+		</div>
+	</div>
+</div>

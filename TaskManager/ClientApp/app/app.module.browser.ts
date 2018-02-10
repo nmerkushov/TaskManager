@@ -10,6 +10,12 @@ import { DeleteProjectDialogComponent } from './components/projectlist/deletepro
 import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
 import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
+import { AddNewBankDialogComponent } from './components/banklist/addnewbank.dialog/addnewbank.dialog.component';
+import { EditBankDialogComponent } from './components/banklist/editbank.dialog/editbank.dialog.component';
+import { DeleteBankDialogComponent } from './components/banklist/deletebank.dialog/deletebank.dialog.component';
+import { AddNewPersonDialogComponent } from './components/personlist/addnewperson.dialog/addnewperson.dialog.component';
+import { EditPersonDialogComponent } from './components/personlist/editperson.dialog/editperson.dialog.component';
+import { DeletePersonDialogComponent } from './components/personlist/deleteperson.dialog/deleteperson.dialog.component';
 
 @NgModule({
 	bootstrap: [AppComponent],
@@ -28,7 +34,13 @@ import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dial
 		DeleteProjectDialogComponent,
 		AddNewTaskDialogComponent,
 		EditTaskDialogComponent,
-		DeleteTaskDialogComponent
+		DeleteTaskDialogComponent,
+		AddNewBankDialogComponent,
+		EditBankDialogComponent,
+		DeleteBankDialogComponent,
+		AddNewPersonDialogComponent,
+		EditPersonDialogComponent,
+		DeletePersonDialogComponent
 	]
 })
 export class AppModule {

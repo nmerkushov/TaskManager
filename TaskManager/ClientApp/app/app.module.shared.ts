@@ -13,6 +13,14 @@ import { TaskListComponent } from './components/tasklist/tasklist.component';
 import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
 import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
+import { BankListComponent } from './components/banklist/banklist.component';
+import { AddNewBankDialogComponent } from './components/banklist/addnewbank.dialog/addnewbank.dialog.component';
+import { EditBankDialogComponent } from './components/banklist/editbank.dialog/editbank.dialog.component';
+import { DeleteBankDialogComponent } from './components/banklist/deletebank.dialog/deletebank.dialog.component';
+import { PersonListComponent } from './components/personlist/personlist.component';
+import { AddNewPersonDialogComponent } from './components/personlist/addnewperson.dialog/addnewperson.dialog.component';
+import { EditPersonDialogComponent } from './components/personlist/editperson.dialog/editperson.dialog.component';
+import { DeletePersonDialogComponent } from './components/personlist/deleteperson.dialog/deleteperson.dialog.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +32,15 @@ import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dial
 		TaskListComponent,
 		AddNewTaskDialogComponent,
 		EditTaskDialogComponent,
-		DeleteTaskDialogComponent
+		DeleteTaskDialogComponent,
+		BankListComponent,
+		AddNewBankDialogComponent,
+		EditBankDialogComponent,
+		DeleteBankDialogComponent,
+		PersonListComponent,
+		AddNewPersonDialogComponent,
+		EditPersonDialogComponent,
+		DeletePersonDialogComponent
 	],
     imports: [
         CommonModule,
@@ -34,6 +50,8 @@ import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dial
         RouterModule.forRoot([
             { path: '', redirectTo: 'projectlist', pathMatch: 'full' },
 			{ path: 'projectlist', component: ProjectListComponent },
+			{ path: 'banklist', component: BankListComponent },
+			{ path: 'personlist', component: PersonListComponent },
 			{ path: 'tasklist', redirectTo: 'tasklist/0' },
 			{ path: 'tasklist/:projectID', component: TaskListComponent },
             { path: '**', redirectTo: 'projectlist' }

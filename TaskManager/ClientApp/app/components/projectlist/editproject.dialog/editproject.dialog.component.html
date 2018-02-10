@@ -8,7 +8,7 @@
 			<div class="row">
 				<label class="control-label col-sm-5" for="name">Название проекта:</label>
 				<div class="col-sm-7">
-					<input type="text" class="form-control" id="name" #name="ngModel" placeholder="Название проекта" [(ngModel)]="project.projectName" [ngModelOptions]="{standalone: true}" required ng-trim="true" #ctrl="ngModel" />
+					<input type="text" class="form-control" id="name" #name="ngModel" placeholder="Название проекта" [(ngModel)]="project.projectName" [ngModelOptions]="{standalone: true}" required ng-trim="true" />
 				</div>
 				<div *ngIf="name.invalid && !isValid" class="alert alert-danger">
 					<div *ngIf="name.errors.required">

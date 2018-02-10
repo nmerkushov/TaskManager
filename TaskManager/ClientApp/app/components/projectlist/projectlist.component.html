@@ -1,8 +1,9 @@
 ﻿<div class="container">
 	<div class="row rowcont">
-		<h2 class="col-sm-4">Список проектов</h2>
-		<div class="col-sm-6"></div>
-		<div class="col-sm-2 bottom-right button-bottomright"><button class="btn btn-primary" (click)="add_new_project()">Добавить новый проект</button></div>
+		<h2 class="col-sm-3">Список проектов</h2>
+		<div class="col-sm-3"><a class="btn btn-primary button-bottomright" href="banklist">Список банков</a></div>
+		<div class="col-sm-3"><a class="btn btn-primary button-bottomright" href="personlist">Список персон</a></div>
+		<div class="col-sm-3"><button class="btn btn-primary button-bottomright" (click)="add_new_project()">Добавить новый проект</button></div>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
@@ -25,11 +26,11 @@
 				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
 				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
 
-				<dxi-column cellTemplate="editTemplate"></dxi-column>
-				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
+				<dxi-column cellTemplate="editTemplate" [width]="50"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
 				<dxi-column cellTemplate="showTaskTemplate"></dxi-column>
 
-				<dxi-column dataField="projectID" caption="ID"></dxi-column>
+				<dxi-column dataField="projectID" caption="ID" [width]="50"></dxi-column>
 				<dxi-column dataField="projectName" caption="Название проекта"></dxi-column>
 				<dxi-column dataField="bankName" caption="Банк"></dxi-column>
 				<dxi-column dataField="contactPersonName" caption="Контактное лицо"></dxi-column>

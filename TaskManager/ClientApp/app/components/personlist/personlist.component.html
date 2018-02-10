@@ -1,0 +1,51 @@
+﻿<div class="container">
+	<div class="row rowcont">
+		<h2 class="col-sm-6">Список персон</h2>
+		<div class="col-sm-3"><a class="btn btn-primary button-bottomright" href="/projectlist">Вернуться к списку проектов</a></div>
+		<div class="col-sm-3"><button class="btn btn-primary button-bottomright" (click)="add_new_person()">Добавить новую персону</button></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<dx-data-grid #personGrid
+						  id="personGridContainer"
+						  [dataSource]="persons"
+						  [allowColumnReordering]="true"
+						  [allowColumnResizing]="true"
+						  [columnResizingMode]="nextColumn"
+						  [columnAutoWidth]="true"
+						  [columnMinWidth]="20">
+
+				<dxo-filter-row [visible]="true"
+								[applyFilter]="auto"></dxo-filter-row>
+				
+				<dxo-header-filter [visible]="true"></dxo-header-filter>
+				<dxo-search-panel [visible]="true"
+								  [width]="240"
+								  placeholder="Поиск..."></dxo-search-panel>
+				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+
+				<dxi-column cellTemplate="editTemplate" [width]="50"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
+
+				<dxi-column dataField="personID" caption="ID" [width]="50"></dxi-column>
+				<dxi-column dataField="fio" caption="ФИО"></dxi-column>
+				<dxi-column dataField="phoneFaxes" caption="Телефон/факс"></dxi-column>
+				<dxi-column dataField="emails" caption="E-mail"></dxi-column>
+
+				<dxo-paging [pageSize]="10"></dxo-paging>
+				<dxo-pager [showPageSizeSelector]="true"
+						   [allowedPageSizes]="[10, 25, 50]"
+						   [showInfo]="true">
+				</dxo-pager>    
+
+				<div *dxTemplate="let p of 'editTemplate'">
+					<button class="btn btn-warning btn-sm" (click)="edit_person(p.data)"><span class="dx-icon-edit"></span></button>
+				</div>
+				<div *dxTemplate="let p of 'deleteTemplate'">
+					<button class="btn btn-danger btn-sm" (click)="delete_person(p.data)"><span class="dx-icon-trash"></span></button>
+				</div>
+			</dx-data-grid>
+		</div>
+	</div>
+</div>

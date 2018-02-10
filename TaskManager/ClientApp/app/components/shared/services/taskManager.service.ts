@@ -44,12 +44,42 @@ export class TaskManagerService {
 			.toPromise();
 	}
 
+	addNewBank(bank: Bank) {
+		const url = '/taskmanager/addnewbank';
+		return this.http.post(url, bank).toPromise();
+	}
+
+	editBank(bank: Bank) {
+		const url = '/taskmanager/editbank';
+		return this.http.post(url, bank).toPromise();
+	}
+
+	deleteBank(bank: Bank) {
+		const url = '/taskmanager/deletebank';
+		return this.http.post(url, bank).toPromise();
+	}
+
 	getPersons() {
 		return this.http.get('/taskmanager/getpersons')
 			.map((response: Response) => {
 				return response.json() as Person[];
 			})
 			.toPromise();
+	}
+
+	addNewPerson(person: Person) {
+		const url = '/taskmanager/addnewperson';
+		return this.http.post(url, person).toPromise();
+	}
+
+	editPerson(person: Person) {
+		const url = '/taskmanager/editperson';
+		return this.http.post(url, person).toPromise();
+	}
+
+	deletePerson(person: Person) {
+		const url = '/taskmanager/deleteperson';
+		return this.http.post(url, person).toPromise();
 	}
 
 	getTasks(projectID : number) {

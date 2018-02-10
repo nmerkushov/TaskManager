@@ -1,7 +1,7 @@
 ﻿<div class="container">
 	<div class="row rowcont">
-		<h2 class="col-sm-10">Проект: {{project.projectName}}</h2>
-		<div class="col-sm-2 button-bottomright"><a class="btn btn-primary" href="/projectlist">Вернуться к списку проектов</a></div>
+		<h2 class="col-sm-9">Проект: {{project.projectName}}</h2>
+		<div class="col-sm-3"><a class="btn btn-primary button-bottomright" href="/projectlist">Вернуться к списку проектов</a></div>
 	</div>
 	<div class="row rowcont">
 		<h4 class="col-sm-12">Банк: {{project.bankName}}</h4>
@@ -14,9 +14,9 @@
 		<div class="col-sm-12">{{project.phoneFaxes}}</div>
 	</div>
 	<div class="row rowcont">
-		<div class="col-sm-4"></div>
+		<div class="col-sm-3"></div>
 		<h2 class="col-sm-6">Список задач</h2>
-		<div class="col-sm-2 bottom-right button-bottomright"><button class="btn btn-primary" (click)="add_new_task()">Добавить новый задачу</button></div>
+		<div class="col-sm-3"><button class="btn btn-primary button-bottomright" (click)="add_new_task()">Добавить новый задачу</button></div>
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
@@ -40,10 +40,10 @@
 				<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
 				<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
 
-				<dxi-column cellTemplate="editTemplate"></dxi-column>
-				<dxi-column cellTemplate="deleteTemplate"></dxi-column>
+				<dxi-column cellTemplate="editTemplate" [width]="50"></dxi-column>
+				<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
 
-				<dxi-column dataField="taskID" caption="ID"></dxi-column>
+				<dxi-column dataField="taskID" caption="ID" [width]="50"></dxi-column>
 				<dxi-column dataField="taskName" caption="Название задачи"></dxi-column>
 				<dxi-column dataField="priority" caption="Приоритет"></dxi-column>
 				<dxi-column dataField="responsiblePersonName" caption="Ответственный"></dxi-column>

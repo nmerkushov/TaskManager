@@ -31,20 +31,6 @@ namespace TaskManager.Controllers
 			return new ObjectResult(projects);
 		}
 
-		public IActionResult GetBanks()
-		{
-			var banks = _context.Banks.ToList();
-
-			return new ObjectResult(banks);
-		}
-
-		public IActionResult GetPersons()
-		{
-			var persons = _context.Persons.ToList();
-
-			return new ObjectResult(persons);
-		}
-
 		[HttpPost]
 		public IActionResult AddNewProject([FromBody]Project project)
 		{
@@ -88,16 +74,6 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
-		[Route("taskmanager/gettasks/{projectID}")]
-		public IActionResult GetTasks(int projectID)
-		{
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.Tasks).ThenInclude(t => t.ResponsiblePerson)
-				.Include(p => p.Tasks).ThenInclude(t => t.Status)
-				.FirstOrDefault();
-			return new ObjectResult(project == null ? new HashSet<Task>() : project.Tasks);
-		}
-
 		[Route("taskmanager/getprojectbyid/{projectID}")]
 		public IActionResult GetProjectByID(int projectID)
 		{
@@ -108,11 +84,78 @@ namespace TaskManager.Controllers
 			return new ObjectResult(project);
 		}
 
-		public IActionResult GetTaskStatuses()
+		public IActionResult GetBanks()
 		{
-			var taskStatuses = _context.TaskStatuses.ToList();
+			var banks = _context.Banks.ToList();
 
-			return new ObjectResult(taskStatuses);
+			return new ObjectResult(banks);
+		}
+
+		[HttpPost]
+		public IActionResult AddNewBank([FromBody]Bank bank)
+		{
+			_context.Banks.Add(bank);
+			_context.SaveChanges();
+
+			return Ok();
+		}
+
+		[HttpPost]
+		public IActionResult EditBank([FromBody]Bank bank)
+		{
+			_context.Banks.Update(bank);
+			_context.SaveChanges();
+			return Ok();
+		}
+
+		[HttpPost]
+		public IActionResult DeleteBank([FromBody]Bank bank)
+		{
+			_context.Banks.Remove(bank);
+			_context.SaveChanges();
+			return Ok();
+		}
+
+		public IActionResult GetPersons()
+		{
+			var persons = _context.Persons.ToList();
+
+			return new ObjectResult(persons);
+		}
+
+		[HttpPost]
+		public IActionResult AddNewPerson([FromBody]Person person)
+		{
+			_context.Persons.Add(person);
+			_context.SaveChanges();
+
+			return Ok();
+		}
+
+		[HttpPost]
+		public IActionResult EditPerson([FromBody]Person person)
+		{
+			_context.Persons.Update(person);
+			_context.SaveChanges();
+			return Ok();
+		}
+
+		[HttpPost]
+		public IActionResult DeletePerson([FromBody]Person person)
+		{
+			_context.Persons.Remove(person);
+			_context.SaveChanges();
+			return Ok();
+		}
+
+		[Route("taskmanager/gettasks/{projectID}")]
+		public IActionResult GetTasks(int projectID)
+		{
+			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+				.Include(p => p.Tasks).ThenInclude(t => t.ResponsiblePerson)
+				.Include(p => p.Tasks).ThenInclude(t => t.Status)
+				.FirstOrDefault();
+			return new ObjectResult(project == null ? new HashSet<Task>() : project.Tasks);
 		}
 
 		[HttpPost]
@@ -202,6 +245,13 @@ namespace TaskManager.Controllers
 				_context.SaveChanges();
 			}
 			return Ok();
+		}
+
+		public IActionResult GetTaskStatuses()
+		{
+			var taskStatuses = _context.TaskStatuses.ToList();
+
+			return new ObjectResult(taskStatuses);
 		}
 	}
 }

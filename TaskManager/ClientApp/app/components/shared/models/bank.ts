@@ -7,3 +7,7 @@
 		this.bankName = bankName;
 	}
 }
+
+export interface IOneBank {
+	bank: Bank;
+}
