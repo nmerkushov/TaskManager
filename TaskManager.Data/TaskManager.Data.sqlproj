@@ -71,6 +71,6 @@
     <Build Include="dbo\Sequences\SeqProjectID.sql" />
     <Build Include="dbo\Sequences\SeqPersonID.sql" />
     <Build Include="dbo\Sequences\SeqBankID.sql" />
-    <Build Include="FillTaskStatusTable.sql" />
+    <None Include="FillTaskStatusTable.sql" />
   </ItemGroup>
 </Project>

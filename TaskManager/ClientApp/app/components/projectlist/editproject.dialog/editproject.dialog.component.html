@@ -19,7 +19,7 @@
 			<div class="row">
 				<label class="control-label col-sm-5" for="bank">Банк:</label>
 				<div class="col-sm-7">
-					<select class="form-control" id="bank" placeholder="Банк" style="width: 100%;" [(ngModel)]="project.bankID" #selectElemB (change)="this.project.BankID=selectElemB.value">
+					<select class="form-control" id="bank" placeholder="Банк" style="width: 100%;" [(ngModel)]="project.bankID" #selectElemB (change)="this.project.bankID=selectElemB.value">
 						<option *ngFor="let bank of banks" value="{{bank.bankID}}">{{bank.bankName}}</option>
 					</select>
 				</div>
@@ -27,7 +27,7 @@
 			<div class="row">
 				<label class="control-label col-sm-5" for="contactPerson">Контактное лицо:</label>
 				<div class="col-sm-7">
-					<select class="form-control" id="contactPerson" placeholder="Контактное лицо" style="width: 100%;" [(ngModel)]="project.contactPersonID" #selectElemCP (change)="this.project.ContactPersonID=selectElemCP.value">
+					<select class="form-control" id="contactPerson" placeholder="Контактное лицо" style="width: 100%;" [(ngModel)]="project.contactPersonID" #selectElemCP (change)="this.project.contactPersonID=selectElemCP.value">
 						<option *ngFor="let person of persons" value="{{person.personID}}">{{person.fio}}</option>
 					</select>
 				</div>

@@ -11,12 +11,10 @@
 						  [dataSource]="banks"
 						  [allowColumnReordering]="true"
 						  [allowColumnResizing]="true"
-						  [columnResizingMode]="nextColumn"
 						  [columnAutoWidth]="true"
 						  [columnMinWidth]="20">
 
-				<dxo-filter-row [visible]="true"
-								[applyFilter]="auto"></dxo-filter-row>
+				<dxo-filter-row [visible]="true"></dxo-filter-row>
 				
 				<dxo-header-filter [visible]="true"></dxo-header-filter>
 				<dxo-search-panel [visible]="true"
