@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TaskManager.Models
 {
@@ -56,5 +57,6 @@ namespace TaskManager.Models
 		public string Notes { get; set; }
 		public string ResponseAction { get; set; }
 		public string RowColor { get; set; }
-    }
+		public ICollection<TaskFile> TaskFiles { get; set; } = new HashSet<TaskFile>();
+	}
 }

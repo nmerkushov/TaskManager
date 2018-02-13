@@ -20,15 +20,24 @@ namespace TaskManager.Models
 			modelBuilder.Entity<Project>().ToTable("Project");
 			modelBuilder.Entity<Project>().HasKey(x => x.ProjectID);
 			modelBuilder.Entity<Project>().HasMany(x => x.Tasks).WithOne().HasPrincipalKey(x => x.ProjectID);
+			modelBuilder.Entity<Project>().HasMany(x => x.ProjectFiles).WithOne().HasPrincipalKey(x => x.ProjectID);
 			modelBuilder.Entity<Project>().HasOne(x => x.Bank).WithMany().HasForeignKey(x => x.BankID);
 			modelBuilder.Entity<Project>().HasOne(x => x.ContactPerson).WithMany().HasForeignKey(x => x.ContactPersonID);
 			modelBuilder.Entity<Project>().Property(x => x.ProjectID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqProjectID");
+
+			modelBuilder.Entity<ProjectFile>().ToTable("ProjectFile");
+			modelBuilder.Entity<ProjectFile>().HasKey(x => x.ProjectFileID);
+			modelBuilder.Entity<ProjectFile>().Property(x => x.ProjectFileID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqProjectFileID");
 
 			modelBuilder.Entity<Task>().ToTable("Task");
 			modelBuilder.Entity<Task>().HasKey(x => x.TaskID);
 			modelBuilder.Entity<Task>().HasOne(x => x.ResponsiblePerson).WithMany().HasPrincipalKey(x => x.PersonID);
 			modelBuilder.Entity<Task>().HasOne(x => x.Status).WithMany().HasForeignKey(x => x.StatusID);
 			modelBuilder.Entity<Task>().Property(x => x.TaskID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqTaskID");
+
+			modelBuilder.Entity<TaskFile>().ToTable("TaskFile");
+			modelBuilder.Entity<TaskFile>().HasKey(x => x.TaskFileID);
+			modelBuilder.Entity<TaskFile>().Property(x => x.TaskFileID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqTaskFileID");
 
 			modelBuilder.Entity<Bank>().ToTable("Bank");
 			modelBuilder.Entity<Bank>().HasKey(x => x.BankID);

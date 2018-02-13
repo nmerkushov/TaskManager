@@ -26,7 +26,8 @@
 						  [allowColumnReordering]="true"
 						  [allowColumnResizing]="true"
 						  [columnAutoWidth]="true"
-						  [columnMinWidth]="20">
+						  [columnMinWidth]="20"
+						  (onRowPrepared)="onRowPrepared($event)">
 
 				<dxo-filter-row [visible]="true"></dxo-filter-row>
 				<dxo-selection mode="multiple"></dxo-selection>

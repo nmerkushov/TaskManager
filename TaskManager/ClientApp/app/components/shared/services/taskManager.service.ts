@@ -5,7 +5,7 @@ import { Project } from '../models/project';
 import { Bank } from '../models/bank';
 import { Person } from '../models/person';
 import { Task } from '../models/task';
-import { TaskStatus } from '../models/taskStatus';
+import { TaskStatus } from '../models/taskstatus';
 
 @Injectable()
 export class TaskManagerService {

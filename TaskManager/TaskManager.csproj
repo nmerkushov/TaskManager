@@ -29,7 +29,9 @@
     <None Remove="ClientApp\app\components\projectlist\editproject.dialog\editproject.dialog.component.ts" />
     <None Remove="ClientApp\app\components\shared\models\person.ts" />
     <None Remove="ClientApp\app\components\shared\models\project.ts" />
+    <None Remove="ClientApp\app\components\shared\models\projectfile.ts" />
     <None Remove="ClientApp\app\components\shared\models\task.ts" />
+    <None Remove="ClientApp\app\components\shared\models\taskfile.ts" />
     <None Remove="ClientApp\app\components\shared\models\taskStatus.ts" />
     <None Remove="ClientApp\app\components\shared\services\taskManager.service.ts" />
     <None Remove="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
@@ -46,8 +48,10 @@
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\bank.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\person.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\project.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\models\projectfile.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\models\task.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\shared\models\taskStatus.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\models\taskfile.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\models\taskstatus.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\services\taskManager.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\deletetask.dialog\deletetask.dialog.component.ts" />

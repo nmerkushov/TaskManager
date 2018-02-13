@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.Models
 {
@@ -14,6 +13,7 @@ namespace TaskManager.Models
 		public string Director { get; set; }
 		public string PhoneFaxes { get; set; }
 		public ICollection<Task> Tasks { get; set; } = new HashSet<Task>();
+		public ICollection<ProjectFile> ProjectFiles { get; set; } = new HashSet<ProjectFile>();
 
 		public string BankName
 		{

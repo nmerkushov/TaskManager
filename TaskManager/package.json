@@ -26,6 +26,7 @@
 		"bootstrap": "^4.0.0-alpha.6",
 		"css": "2.2.1",
 		"css-loader": "0.28.4",
+		"core-js": "^2.5.1",
 		"devextreme": "^17.2.5",
 		"devextreme-angular": "^17.2.5",
 		"es6-shim": "0.35.3",

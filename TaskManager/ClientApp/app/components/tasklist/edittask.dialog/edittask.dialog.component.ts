@@ -2,7 +2,7 @@
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
 import { Task, IOneTask } from '../../shared/models/task';
-import { TaskStatus } from '../../shared/models/taskStatus';
+import { TaskStatus } from '../../shared/models/taskstatus';
 import { Person } from '../../shared/models/person';
 
 @Component({
