@@ -7,6 +7,7 @@ import { TaskManagerService } from './components/shared/services/taskManager.ser
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
 import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
 import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
+import { ProjectFilesDialogComponent } from './components/projectlist/projectfiles.dialog/projectfiles.dialog.component';
 import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
 import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
@@ -32,6 +33,7 @@ import { DeletePersonDialogComponent } from './components/personlist/deleteperso
 		AddNewProjectDialogComponent,
 		EditProjectDialogComponent,
 		DeleteProjectDialogComponent,
+		ProjectFilesDialogComponent,
 		AddNewTaskDialogComponent,
 		EditTaskDialogComponent,
 		DeleteTaskDialogComponent,

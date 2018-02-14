@@ -9,6 +9,7 @@ import { ProjectListComponent } from './components/projectlist/projectlist.compo
 import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
 import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
 import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
+import { ProjectFilesDialogComponent } from './components/projectlist/projectfiles.dialog/projectfiles.dialog.component';
 import { TaskListComponent } from './components/tasklist/tasklist.component';
 import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
@@ -22,6 +23,7 @@ import { AddNewPersonDialogComponent } from './components/personlist/addnewperso
 import { EditPersonDialogComponent } from './components/personlist/editperson.dialog/editperson.dialog.component';
 import { DeletePersonDialogComponent } from './components/personlist/deleteperson.dialog/deleteperson.dialog.component';
 
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -29,6 +31,7 @@ import { DeletePersonDialogComponent } from './components/personlist/deleteperso
 		AddNewProjectDialogComponent,
 		EditProjectDialogComponent,
 		DeleteProjectDialogComponent,
+		ProjectFilesDialogComponent,
 		TaskListComponent,
 		AddNewTaskDialogComponent,
 		EditTaskDialogComponent,

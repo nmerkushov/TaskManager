@@ -240,7 +240,7 @@ namespace TaskManager.Controllers
 
 			if (project != null)
 			{
-				project.Tasks.Remove(project.Tasks.Where(t => t.TaskID == task.TaskID).FirstOrDefault()) ;
+				project.Tasks.Remove(project.Tasks.Where(t => t.TaskID == task.TaskID).FirstOrDefault());
 				_context.Projects.Update(project);
 				_context.SaveChanges();
 			}
@@ -252,6 +252,37 @@ namespace TaskManager.Controllers
 			var taskStatuses = _context.TaskStatuses.ToList();
 
 			return new ObjectResult(taskStatuses);
+		}
+
+		[Route("taskmanager/getprojectfiles/{projectID}")]
+		public IActionResult GetProjectFiles(int projectID)
+		{
+			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+				.Include(p => p.ProjectFiles)
+				.FirstOrDefault();
+			return new ObjectResult(project == null ? new HashSet<ProjectFile>() : project.ProjectFiles);
+		}
+
+		[HttpPost, Route("taskmanager/updateprojectfiles/{projectID}")]
+		public IActionResult UpdateProjectFiles([FromBody]ProjectFile[] projectFiles, int projectID)
+		{
+			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+				.Include(p => p.ProjectFiles)
+				.FirstOrDefault();
+
+			if (project != null)
+			{
+				project.ProjectFiles.Clear();
+				foreach (ProjectFile pf in projectFiles)
+				{
+					pf.ProjectID = projectID;
+					project.ProjectFiles.Add(pf);
+				}
+				_context.Projects.Update(project);
+				_context.SaveChanges();
+			}
+
+			return Ok();
 		}
 	}
 }

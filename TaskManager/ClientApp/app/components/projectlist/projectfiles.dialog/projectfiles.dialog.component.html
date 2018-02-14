@@ -1,0 +1,46 @@
+﻿<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" (click)="close()">&times;</button>
+			<h4 class="modal-title">Файлы прикрепленные проекту {{project.projectName}}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<dx-data-grid #projectFilesGrid
+							  id="projectFilesGridContainer"
+							  [dataSource]="projectFiles"
+							  [columnAutoWidth]="true"
+							  [columnMinWidth]="20"
+							  (onContentReady)="onContentReady($event)"
+							  (onCellPrepared)="onCellPrepared($event)">
+
+					<dxo-editing mode="row" [allowDeleting]="true"></dxo-editing>
+
+					<dxi-column dataField="filePath" caption="Путь к файлу"></dxi-column>
+					<dxi-column cellTemplate="chooseTemplate" [width]="50"></dxi-column>
+
+					<div *dxTemplate="let pf of 'chooseTemplate'">						
+						<!--<div id="fileuploader-container" >
+							<dx-file-uploader #projectFileChoose
+											  selectButtonText="..."
+											  labelText=""
+											  uploadMode="useForm"
+											  accept="*"
+											  (onValueChanged)="onFilePathChanged($event)">
+							</dx-file-uploader>
+						</div>-->
+						<input #selFile name="selFile" type="file" (change)="onFilePathChanged($event,pf.data)" style="display:none"/>
+						<button class="btn btn-default btn-sm" (click)="selFile.click()"><span class="dx-icon-download"></span></button>
+					</div>
+				</dx-data-grid>
+			</div>
+			<div>
+				<button type="button" class="btn btn-primary" (click)="addnew()">Добавить запись</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" (click)="confirm()">Изменить данные</button>
+			<button type="button" class="btn btn-default" (click)="close()">Отменить</button>
+		</div>
+	</div>
+</div>

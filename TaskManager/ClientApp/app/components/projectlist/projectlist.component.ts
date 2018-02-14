@@ -10,6 +10,7 @@ import { TaskManagerService } from '../shared/services/taskManager.service';
 import { AddNewProjectDialogComponent } from './addnewproject.dialog/addnewproject.dialog.component';
 import { EditProjectDialogComponent } from './editproject.dialog/editproject.dialog.component';
 import { DeleteProjectDialogComponent } from './deleteproject.dialog/deleteproject.dialog.component';
+import { ProjectFilesDialogComponent } from './projectfiles.dialog/projectfiles.dialog.component';
 
 @Component({
 	selector: 'projectlist',
@@ -87,6 +88,25 @@ export class ProjectListComponent {
 
 	show_tasks(projectID: number) {
 		this.router.navigate(['/tasklist', projectID]);
+	}
+
+	projectfiles(project: Project)
+	{
+		const disposable = this.dialogService.addDialog(ProjectFilesDialogComponent, { project: project }).subscribe((projectfiles) => {
+			if (projectfiles) {
+				this.service.updateProjectFiles(project.projectID,projectfiles)
+					.then(res => {
+						console.info('Update project files:' + JSON.stringify(projectfiles));
+						this.fillDatasource();
+					}
+					)
+					.catch(err => console.error(err));
+
+			}
+			else {
+				console.info('Cancel dialog');
+			}
+		});
 	}
 }
 

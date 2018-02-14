@@ -6,6 +6,7 @@ import { Bank } from '../models/bank';
 import { Person } from '../models/person';
 import { Task } from '../models/task';
 import { TaskStatus } from '../models/taskstatus';
+import { ProjectFile } from '../models/projectfile';
 
 @Injectable()
 export class TaskManagerService {
@@ -82,7 +83,7 @@ export class TaskManagerService {
 		return this.http.post(url, person).toPromise();
 	}
 
-	getTasks(projectID : number) {
+	getTasks(projectID: number) {
 		return this.http.get(`/taskmanager/gettasks/${projectID}`)
 			.map((response: Response) => {
 				return response.json() as Task[];
@@ -119,5 +120,18 @@ export class TaskManagerService {
 	deleteTask(task: Task) {
 		const url = '/taskmanager/deletetask';
 		return this.http.post(url, task).toPromise();
+	}
+
+	getProjectFiles(projectID: number) {
+		return this.http.get(`/taskmanager/getprojectfiles/${projectID}`)
+			.map((response: Response) => {
+				return response.json() as ProjectFile[];
+			})
+			.toPromise();
+	}
+
+	updateProjectFiles(projectID: number, projectFiles: ProjectFile[]) {
+		const url = `/taskmanager/updateprojectfiles/${projectID}`;
+		return this.http.post(url, projectFiles).toPromise();
 	}
 }
