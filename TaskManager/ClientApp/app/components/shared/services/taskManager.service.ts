@@ -132,6 +132,11 @@ export class TaskManagerService {
 
 	updateProjectFiles(projectID: number, projectFiles: ProjectFile[]) {
 		const url = `/taskmanager/updateprojectfiles/${projectID}`;
-		return this.http.post(url, projectFiles).toPromise();
+		let formData: FormData = new FormData();
+		for (let i = 0; i < projectFiles.length; i++) {
+			formData.append("filesContent", projectFiles[i].fileData);
+		}
+		formData.append("projectFilesJson", JSON.stringify({ projectFiles }));
+		return this.http.post(url, formData).toPromise();
 	}
 }

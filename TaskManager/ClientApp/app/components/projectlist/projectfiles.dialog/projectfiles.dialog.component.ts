@@ -10,7 +10,7 @@ import { ProjectFile } from '../../shared/models/projectfile';
 	templateUrl: './projectfiles.dialog.component.html'
 })
 export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, ProjectFile[]> implements IOneProject {
-	@ViewChild('projectFilesGrid') projectGrid: DxDataGridComponent;
+	@ViewChild('projectFilesGrid') projectFilesGrid: DxDataGridComponent;
 	project: Project;
 	projectFiles: ProjectFile[] = new Array<ProjectFile>();
 
@@ -20,6 +20,7 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 
 	private ngOnInit() {
 		this.fillDatasource();
+		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
 	}
 
 	fillDatasource() {
@@ -27,6 +28,12 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 			this.service.getProjectFiles(this.project.projectID)
 				.then(res => {
 					this.projectFiles = res;
+					for (let pf of this.projectFiles)
+					{
+						pf.isAdded = false;
+						pf.isDeleted = false;
+						pf.fileData = new File(new Array<string>("---"), "nofile");
+					}
 				})
 				.catch(error => console.error(error));
 		}
@@ -36,34 +43,31 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 		this.projectFiles.push(new ProjectFile());
 	}
 
-	confirm() {
-		for (let p of this.projectFiles) {
-			p.projectFileID = 0;
-		}
+	confirm() {		
 		this.result = this.projectFiles.filter(pf => pf.filePath.trim() != '');
 		this.close();
 	}
 
-	onContentReady(e: any) {
-		e.component.columnOption("command:edit", {
-			visibleIndex: -1,
-			width: 80
-		});
-	}
-
-	onCellPrepared(e: any) {
-		if (e.rowType === "data" && e.column.command === "edit") {
-			var cellElement = e.cellElement;
-
-			var deleteLink = cellElement.querySelector(".dx-link-delete");
-			deleteLink.classList.add("dx-icon-trash");
-			deleteLink.textContent = "";
-		}
-	}
-
-	onFilePathChanged(e: any, pf: ProjectFile)
+	onFilePathChanged(e: any, projectFile: ProjectFile)
 	{
-		pf.filePath = e.currentTarget.files[0].name;
+		projectFile.isDeleted = true;
+		let newProjectFile: ProjectFile = new ProjectFile();
+		newProjectFile.projectID = this.project.projectID;
+		newProjectFile.filePath = e.currentTarget.files[0].name;	
+		newProjectFile.fileData = e.target.files[0];
+		newProjectFile.isAdded = true;
+		newProjectFile.isDeleted = false;
+		
+		this.projectFiles.push(newProjectFile);
+		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
+		this.projectFilesGrid.instance.refresh();
+	}
+
+	delete_projectfile(projectFile: ProjectFile)
+	{
+		projectFile.isDeleted = true;
+		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
+		this.projectFilesGrid.instance.refresh();
 	}
 }
 

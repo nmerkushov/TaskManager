@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Models;
 
@@ -264,25 +268,67 @@ namespace TaskManager.Controllers
 		}
 
 		[HttpPost, Route("taskmanager/updateprojectfiles/{projectID}")]
-		public IActionResult UpdateProjectFiles([FromBody]ProjectFile[] projectFiles, int projectID)
+		public IActionResult UpdateProjectFiles(List<IFormFile> filesContent, string projectFilesJson, int projectID)
 		{
+			List<ProjectFileSend> projectFiles = JsonConvert.DeserializeObject<ProjectFilesList>(projectFilesJson).projectFiles;
+
 			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
 				.Include(p => p.ProjectFiles)
 				.FirstOrDefault();
 
 			if (project != null)
 			{
-				project.ProjectFiles.Clear();
-				foreach (ProjectFile pf in projectFiles)
+				for (int i = 0; i < projectFiles.Count(); i++)
 				{
-					pf.ProjectID = projectID;
-					project.ProjectFiles.Add(pf);
+					if (projectFiles[i].IsDeleted)
+					{
+						project.ProjectFiles.Remove(project.ProjectFiles.Where(pf => pf.ProjectFileID == projectFiles[i].ProjectFileID).FirstOrDefault());
+						
+						_context.Projects.Update(project);
+						_context.SaveChanges();
+
+						DeleteFile(projectFiles[i].ProjectFileID);
+					}
+					else if (projectFiles[i].IsAdded)
+					{
+						ProjectFile pf = new ProjectFile();
+						pf.ProjectID = projectID;
+						pf.FilePath = projectFiles[i].FilePath;
+						project.ProjectFiles.Add(pf);
+
+						_context.Projects.Update(project);
+						_context.SaveChanges();
+
+						Stream fileStream = filesContent[i].OpenReadStream();
+						SaveFile(pf.ProjectFileID, fileStream);
+					}
 				}
-				_context.Projects.Update(project);
-				_context.SaveChanges();
 			}
 
 			return Ok();
+		}
+
+		private void DeleteFile(int projectFileID)
+		{
+			FileInfo fileInfo = new FileInfo($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat");
+			if (fileInfo.Exists)
+			{
+				fileInfo.Delete();
+			}
+		}
+
+		private void SaveFile(int projectFileID, Stream fileStream)
+		{
+			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat")))
+			{
+				
+				fileStream.CopyTo(streamToWrite.BaseStream);
+			}
+		}
+
+		private string ProjectFileIDToName(int projectFileID)
+		{
+			return $"P{projectFileID.ToString().Trim().PadLeft(7, '0')}";
 		}
 	}
 }
