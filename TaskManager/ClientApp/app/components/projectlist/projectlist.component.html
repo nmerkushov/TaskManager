@@ -26,8 +26,8 @@
 
 				<dxi-column cellTemplate="editTemplate" [width]="50"></dxi-column>
 				<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
-				<dxi-column cellTemplate="showTaskTemplate"></dxi-column>
-				<dxi-column cellTemplate="projectFilesTemplate"></dxi-column>
+				<dxi-column cellTemplate="showTaskTemplate" [width]="50"></dxi-column>
+				<dxi-column cellTemplate="projectFilesTemplate" [width]="50"></dxi-column>
 
 				<dxi-column dataField="projectID" caption="ID" [width]="50"></dxi-column>
 				<dxi-column dataField="projectName" caption="Название проекта"></dxi-column>
@@ -52,7 +52,7 @@
 					<a class="btn btn-default btn-sm dx-icon-menu" href="tasklist/{{p.data.projectID}}"></a>
 				</div>
 				<div *dxTemplate="let p of 'projectFilesTemplate'">
-					<button class="btn btn-default btn-sm" (click)="projectfiles(p.data)"><span class="dx-icon-download"></span></button>
+					<button class="btn btn-default btn-sm" (click)="projectfiles(p.data)"><span class="dx-icon-folder"></span></button>
 				</div>
 			</dx-data-grid>
 		</div>

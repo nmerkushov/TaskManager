@@ -13,16 +13,20 @@
 							  [columnMinWidth]="20">
 					
 					<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
-					<dxi-column dataField="filePath" caption="Путь к файлу"></dxi-column>
-					<dxi-column cellTemplate="chooseTemplate" [width]="50"></dxi-column>
+					<dxi-column dataField="fileName" caption="Имя файла"></dxi-column>
+					<dxi-column cellTemplate="uploadTemplate" [width]="50"></dxi-column>
+					<dxi-column cellTemplate="downloadTemplate" [width]="50"></dxi-column>
 
 					<div *dxTemplate="let pf of 'deleteTemplate'">
 						<button class="btn btn-danger btn-sm" (click)="delete_projectfile(pf.data)"><span class="dx-icon-trash"></span></button>
 					</div>
 
-					<div *dxTemplate="let pf of 'chooseTemplate'">						
+					<div *dxTemplate="let pf of 'uploadTemplate'">						
 						<input #selFile name="selFile" type="file" (change)="onFilePathChanged($event,pf.data)" style="display:none"/>
-						<button class="btn btn-default btn-sm" (click)="selFile.click()"><span class="dx-icon-download"></span></button>
+						<button class="btn btn-default btn-sm" (click)="selFile.click()"><span class="dx-icon-upload"></span></button>
+					</div>
+					<div *dxTemplate="let pf of 'downloadTemplate'">
+						<a *ngIf="pf.data.projectFileID!=0" class="btn btn-default btn-sm" href="taskmanager/downloadprojectfile/{{pf.data.projectID}}/{{pf.data.projectFileID}}"><span class="dx-icon-download"></span></a>
 					</div>
 				</dx-data-grid>
 			</div>

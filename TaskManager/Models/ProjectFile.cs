@@ -6,7 +6,7 @@ namespace TaskManager.Models
 	{
 		public int ProjectFileID { get; set; }
 		public int ProjectID { get; set; }
-		public string FilePath { get; set; }
+		public string FileName { get; set; }
 	}
 
 	public class ProjectFileSend : ProjectFile

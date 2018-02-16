@@ -1,12 +1,12 @@
 ﻿export class TaskFile {
 	taskFileID: number;
 	taskID: number;
-	filePath: string;
+	fileName: string;
 
 	constructor() {
 		this.taskFileID = 0;
 		this.taskID = 0;
-		this.filePath = "";
+		this.fileName = "";
 	}
 }
 

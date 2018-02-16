@@ -1,6 +1,7 @@
 ﻿import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { DxDataGridComponent} from 'devextreme-angular';
+import { DxDataGridComponent } from 'devextreme-angular';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
 import { Project, IOneProject } from '../../shared/models/project';
 import { ProjectFile } from '../../shared/models/projectfile';
@@ -20,7 +21,6 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 
 	private ngOnInit() {
 		this.fillDatasource();
-		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
 	}
 
 	fillDatasource() {
@@ -28,8 +28,7 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 			this.service.getProjectFiles(this.project.projectID)
 				.then(res => {
 					this.projectFiles = res;
-					for (let pf of this.projectFiles)
-					{
+					for (let pf of this.projectFiles) {
 						pf.isAdded = false;
 						pf.isDeleted = false;
 						pf.fileData = new File(new Array<string>("---"), "nofile");
@@ -43,28 +42,26 @@ export class ProjectFilesDialogComponent extends DialogComponent<IOneProject, Pr
 		this.projectFiles.push(new ProjectFile());
 	}
 
-	confirm() {		
-		this.result = this.projectFiles.filter(pf => pf.filePath.trim() != '');
+	confirm() {
+		this.result = this.projectFiles.filter(pf => pf.fileName.trim() != '');
 		this.close();
 	}
 
-	onFilePathChanged(e: any, projectFile: ProjectFile)
-	{
+	onFilePathChanged(e: any, projectFile: ProjectFile) {
 		projectFile.isDeleted = true;
 		let newProjectFile: ProjectFile = new ProjectFile();
 		newProjectFile.projectID = this.project.projectID;
-		newProjectFile.filePath = e.currentTarget.files[0].name;	
+		newProjectFile.fileName = e.currentTarget.files[0].name;
 		newProjectFile.fileData = e.target.files[0];
 		newProjectFile.isAdded = true;
 		newProjectFile.isDeleted = false;
-		
+
 		this.projectFiles.push(newProjectFile);
 		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
 		this.projectFilesGrid.instance.refresh();
 	}
 
-	delete_projectfile(projectFile: ProjectFile)
-	{
+	delete_projectfile(projectFile: ProjectFile) {
 		projectFile.isDeleted = true;
 		this.projectFilesGrid.instance.filter(["isDeleted", "=", false]);
 		this.projectFilesGrid.instance.refresh();

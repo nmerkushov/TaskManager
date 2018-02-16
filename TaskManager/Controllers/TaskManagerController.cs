@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
@@ -283,7 +285,7 @@ namespace TaskManager.Controllers
 					if (projectFiles[i].IsDeleted)
 					{
 						project.ProjectFiles.Remove(project.ProjectFiles.Where(pf => pf.ProjectFileID == projectFiles[i].ProjectFileID).FirstOrDefault());
-						
+
 						_context.Projects.Update(project);
 						_context.SaveChanges();
 
@@ -293,7 +295,7 @@ namespace TaskManager.Controllers
 					{
 						ProjectFile pf = new ProjectFile();
 						pf.ProjectID = projectID;
-						pf.FilePath = projectFiles[i].FilePath;
+						pf.FileName = projectFiles[i].FileName;
 						project.ProjectFiles.Add(pf);
 
 						_context.Projects.Update(project);
@@ -321,7 +323,7 @@ namespace TaskManager.Controllers
 		{
 			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat")))
 			{
-				
+
 				fileStream.CopyTo(streamToWrite.BaseStream);
 			}
 		}
@@ -329,6 +331,36 @@ namespace TaskManager.Controllers
 		private string ProjectFileIDToName(int projectFileID)
 		{
 			return $"P{projectFileID.ToString().Trim().PadLeft(7, '0')}";
+		}
+
+		[Route("taskmanager/downloadprojectfile/{projectID}/{projectFileID}")]
+		public IActionResult DownloadProjectFile(int projectID, int projectFileID)
+		{
+			string path = $"./StoredData/{ProjectFileIDToName(projectFileID)}.dat";
+			if (System.IO.File.Exists(path))
+			{
+				Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+					.Include(p => p.ProjectFiles)
+					.FirstOrDefault();
+				if (project != null)
+				{
+					ProjectFile projectFile = project.ProjectFiles.Where(pf => pf.ProjectFileID == projectFileID).FirstOrDefault();
+					if (projectFile != null)
+					{
+						var memory = new MemoryStream();
+						using (var stream = new FileStream(path, FileMode.Open))
+						{
+							byte[] bytes = new byte[stream.Length];
+							stream.Read(bytes, 0, (int)stream.Length);
+							memory.Write(bytes, 0, (int)stream.Length);
+							var response = File(bytes, "application/octet-stream", projectFile.FileName); // FileStreamResult
+							return response;
+
+						}
+					}
+				}
+			}
+			return NotFound();
 		}
 	}
 }
