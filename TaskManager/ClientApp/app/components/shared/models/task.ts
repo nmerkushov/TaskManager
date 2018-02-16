@@ -1,4 +1,6 @@
-﻿export class Task {
+﻿import { Project } from './project';
+
+export class Task {
 	taskID: number;
 	projectID: number;
 	taskName: string;
@@ -33,5 +35,10 @@
 }
 
 export interface IOneTask {
+	task: Task;
+}
+
+export interface IOneProjectTask {
+	project: Project;
 	task: Task;
 }

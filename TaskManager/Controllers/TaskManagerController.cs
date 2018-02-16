@@ -289,7 +289,7 @@ namespace TaskManager.Controllers
 						_context.Projects.Update(project);
 						_context.SaveChanges();
 
-						DeleteFile(projectFiles[i].ProjectFileID);
+						DeleteProjectFile(projectFiles[i].ProjectFileID);
 					}
 					else if (projectFiles[i].IsAdded)
 					{
@@ -302,7 +302,7 @@ namespace TaskManager.Controllers
 						_context.SaveChanges();
 
 						Stream fileStream = filesContent[i].OpenReadStream();
-						SaveFile(pf.ProjectFileID, fileStream);
+						SaveProjectFile(pf.ProjectFileID, fileStream);
 					}
 				}
 			}
@@ -310,7 +310,7 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
-		private void DeleteFile(int projectFileID)
+		private void DeleteProjectFile(int projectFileID)
 		{
 			FileInfo fileInfo = new FileInfo($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat");
 			if (fileInfo.Exists)
@@ -319,7 +319,7 @@ namespace TaskManager.Controllers
 			}
 		}
 
-		private void SaveFile(int projectFileID, Stream fileStream)
+		private void SaveProjectFile(int projectFileID, Stream fileStream)
 		{
 			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat")))
 			{
@@ -356,6 +356,124 @@ namespace TaskManager.Controllers
 							var response = File(bytes, "application/octet-stream", projectFile.FileName); // FileStreamResult
 							return response;
 
+						}
+					}
+				}
+			}
+			return NotFound();
+		}
+
+		[Route("taskmanager/gettaskfiles/{projectID}/{taskID}")]
+		public IActionResult GetTaskFiles(int projectID, int taskID)
+		{
+			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+				.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
+				.FirstOrDefault();
+			if (project != null)
+			{
+				Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
+				if (task != null)
+				{
+					return new ObjectResult(task.TaskFiles);
+				}
+			}
+			return new ObjectResult(new HashSet<TaskFile>());
+		}
+
+		[HttpPost, Route("taskmanager/updatetaskfiles/{projectID}/{taskID}")]
+		public IActionResult UpdateTaskFiles(List<IFormFile> filesContent, string taskFilesJson, int projectID, int taskID)
+		{
+			List<TaskFileSend> taskFiles = JsonConvert.DeserializeObject<TaskFilesList>(taskFilesJson).taskFiles;
+
+			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+				.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
+				.FirstOrDefault();
+
+			if (project != null)
+			{
+				Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
+				if (task != null)
+				{
+					for (int i = 0; i < taskFiles.Count(); i++)
+					{
+						if (taskFiles[i].IsDeleted)
+						{
+							task.TaskFiles.Remove(task.TaskFiles.Where(tf => tf.TaskFileID == taskFiles[i].TaskFileID).FirstOrDefault());
+
+							_context.Projects.Update(project);
+							_context.SaveChanges();
+
+							DeleteTaskFile(taskFiles[i].TaskFileID);
+						}
+						else if (taskFiles[i].IsAdded)
+						{
+							TaskFile tf = new TaskFile();
+							tf.TaskID = taskID;
+							tf.FileName = taskFiles[i].FileName;
+							task.TaskFiles.Add(tf);
+
+							_context.Projects.Update(project);
+							_context.SaveChanges();
+
+							Stream fileStream = filesContent[i].OpenReadStream();
+							SaveTaskFile(tf.TaskFileID, fileStream);
+						}
+					}
+				}
+			}
+
+			return Ok();
+		}
+
+		private void DeleteTaskFile(int taskFileID)
+		{
+			FileInfo fileInfo = new FileInfo($"./StoredData/{TaskFileIDToName(taskFileID)}.dat");
+			if (fileInfo.Exists)
+			{
+				fileInfo.Delete();
+			}
+		}
+
+		private void SaveTaskFile(int taskFileID, Stream fileStream)
+		{
+			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{TaskFileIDToName(taskFileID)}.dat")))
+			{
+
+				fileStream.CopyTo(streamToWrite.BaseStream);
+			}
+		}
+
+		private string TaskFileIDToName(int taskFileID)
+		{
+			return $"T{taskFileID.ToString().Trim().PadLeft(7, '0')}";
+		}
+
+		[Route("taskmanager/downloadtaskfile/{projectID}/{taskID}/{taskFileID}")]
+		public IActionResult DownloadTaskFile(int projectID, int taskID, int taskFileID)
+		{
+			string path = $"./StoredData/{TaskFileIDToName(taskFileID)}.dat";
+			if (System.IO.File.Exists(path))
+			{
+				Project project = _context.Projects.Where(p => p.ProjectID == projectID)
+					.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
+					.FirstOrDefault();
+				if (project != null)
+				{
+					Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
+					if (task != null)
+					{
+						TaskFile taskFile = task.TaskFiles.Where(tf => tf.TaskFileID == taskFileID).FirstOrDefault();
+						if (taskFile != null)
+						{
+							var memory = new MemoryStream();
+							using (var stream = new FileStream(path, FileMode.Open))
+							{
+								byte[] bytes = new byte[stream.Length];
+								stream.Read(bytes, 0, (int)stream.Length);
+								memory.Write(bytes, 0, (int)stream.Length);
+								var response = File(bytes, "application/octet-stream", taskFile.FileName); // FileStreamResult
+								return response;
+							}
 						}
 					}
 				}

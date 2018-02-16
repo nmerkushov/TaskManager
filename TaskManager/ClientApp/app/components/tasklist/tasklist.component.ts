@@ -11,6 +11,7 @@ import { TaskManagerService } from '../shared/services/taskManager.service';
 import { AddNewTaskDialogComponent } from './addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './edittask.dialog/edittask.dialog.component';
 import { DeleteTaskDialogComponent } from './deletetask.dialog/deletetask.dialog.component';
+import { TaskFilesDialogComponent } from './taskfiles.dialog/taskfiles.dialog.component';
 
 @Component({
 	selector: 'tasklist',
@@ -125,6 +126,24 @@ export class TaskListComponent {
 		}
 		this.taskGrid.instance.clearSelection();
 		this.taskGrid.instance.refresh();
+	}
+
+	taskfiles(task: Task) {
+		const disposable = this.dialogService.addDialog(TaskFilesDialogComponent, { project: this.project,task: task }).subscribe((taskfiles) => {
+			if (taskfiles) {
+				this.service.updateTaskFiles(this.project.projectID, task.taskID, taskfiles)
+					.then(res => {
+						console.info('Update task files:' + JSON.stringify(taskfiles));
+						this.fillDatasource();
+					}
+					)
+					.catch(err => console.error(err));
+
+			}
+			else {
+				console.info('Cancel dialog');
+			}
+		});
 	}
 
 }

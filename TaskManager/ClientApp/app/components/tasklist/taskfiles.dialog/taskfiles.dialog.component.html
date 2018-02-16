@@ -1,0 +1,41 @@
+﻿<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" (click)="close()">&times;</button>
+			<h4 class="modal-title">Файлы прикрепленные задаче {{task.taskName}}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<dx-data-grid #taskFilesGrid
+							  id="taskFilesGridContainer"
+							  [dataSource]="taskFiles"
+							  [columnAutoWidth]="true"
+							  [columnMinWidth]="20">
+
+					<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
+					<dxi-column dataField="fileName" caption="Имя файла"></dxi-column>
+					<dxi-column cellTemplate="uploadTemplate" [width]="50"></dxi-column>
+					<dxi-column cellTemplate="downloadTemplate" [width]="50"></dxi-column>
+
+					<div *dxTemplate="let tf of 'deleteTemplate'">
+						<button class="btn btn-danger btn-sm" (click)="delete_taskfile(tf.data)"><span class="dx-icon-trash"></span></button>
+					</div>
+					<div *dxTemplate="let tf of 'uploadTemplate'">
+						<input #selFile name="selFile" type="file" (change)="onFilePathChanged($event,tf.data)" style="display:none" />
+						<button class="btn btn-default btn-sm" (click)="selFile.click()"><span class="dx-icon-upload"></span></button>
+					</div>
+					<div *dxTemplate="let tf of 'downloadTemplate'">
+						<a *ngIf="tf.data.projectFileID!=0" class="btn btn-default btn-sm" href="taskmanager/downloadtaskfile/{{this.project.projectID}}/{{tf.data.taskID}}/{{tf.data.taskFileID}}"><span class="dx-icon-download"></span></a>
+					</div>
+				</dx-data-grid>
+			</div>
+			<div>
+				<button type="button" class="btn btn-primary" (click)="addnew()">Добавить запись</button>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-warning" (click)="confirm()">Изменить данные</button>
+			<button type="button" class="btn btn-default" (click)="close()">Отменить</button>
+		</div>
+	</div>
+</div>

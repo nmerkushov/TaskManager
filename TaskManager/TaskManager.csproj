@@ -38,6 +38,7 @@
     <None Remove="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
     <None Remove="ClientApp\app\components\tasklist\deletetask.dialog\deletetask.dialog.component.ts" />
     <None Remove="ClientApp\app\components\tasklist\edittask.dialog\edittask.dialog.component.ts" />
+    <None Remove="ClientApp\app\components\tasklist\taskfiles.dialog\taskfiles.dialog.component.ts" />
     <None Remove="ClientApp\app\components\tasklist\tasklist.component.ts" />
   </ItemGroup>
 
@@ -58,6 +59,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\addnewtask.dialog\addnewtask.dialog.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\deletetask.dialog\deletetask.dialog.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\edittask.dialog\edittask.dialog.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\tasklist\taskfiles.dialog\taskfiles.dialog.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\tasklist\tasklist.component.ts" />
   </ItemGroup>
 

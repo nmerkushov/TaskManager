@@ -11,6 +11,7 @@ import { ProjectFilesDialogComponent } from './components/projectlist/projectfil
 import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
 import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
 import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
+import { TaskFilesDialogComponent } from './components/tasklist/taskfiles.dialog/taskfiles.dialog.component';
 import { AddNewBankDialogComponent } from './components/banklist/addnewbank.dialog/addnewbank.dialog.component';
 import { EditBankDialogComponent } from './components/banklist/editbank.dialog/editbank.dialog.component';
 import { DeleteBankDialogComponent } from './components/banklist/deletebank.dialog/deletebank.dialog.component';
@@ -37,6 +38,7 @@ import { DeletePersonDialogComponent } from './components/personlist/deleteperso
 		AddNewTaskDialogComponent,
 		EditTaskDialogComponent,
 		DeleteTaskDialogComponent,
+		TaskFilesDialogComponent,
 		AddNewBankDialogComponent,
 		EditBankDialogComponent,
 		DeleteBankDialogComponent,

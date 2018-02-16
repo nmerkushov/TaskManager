@@ -40,6 +40,7 @@
 
 				<dxi-column cellTemplate="editTemplate" [width]="50"></dxi-column>
 				<dxi-column cellTemplate="deleteTemplate" [width]="50"></dxi-column>
+				<dxi-column cellTemplate="taskFilesTemplate" [width]="50"></dxi-column>
 
 				<dxi-column dataField="taskID" caption="ID" [width]="50"></dxi-column>
 				<dxi-column dataField="taskName" caption="Название задачи"></dxi-column>
@@ -63,6 +64,9 @@
 				</div>
 				<div *dxTemplate="let t of 'deleteTemplate'">
 					<button class="btn btn-danger btn-sm"><span class="dx-icon-trash" (click)="delete_task(t.data)"></span></button>
+				</div>
+				<div *dxTemplate="let tf of 'taskFilesTemplate'">
+					<button class="btn btn-default btn-sm" (click)="taskfiles(tf.data)"><span class="dx-icon-folder"></span></button>
 				</div>
 			</dx-data-grid>
 			<dx-color-box #colorBox

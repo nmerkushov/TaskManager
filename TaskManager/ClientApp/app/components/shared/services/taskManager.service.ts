@@ -7,6 +7,7 @@ import { Person } from '../models/person';
 import { Task } from '../models/task';
 import { TaskStatus } from '../models/taskstatus';
 import { ProjectFile } from '../models/projectfile';
+import { TaskFile } from '../models/taskfile';
 
 @Injectable()
 export class TaskManagerService {
@@ -129,7 +130,6 @@ export class TaskManagerService {
 			})
 			.toPromise();
 	}
-
 	updateProjectFiles(projectID: number, projectFiles: ProjectFile[]) {
 		const url = `/taskmanager/updateprojectfiles/${projectID}`;
 		let formData: FormData = new FormData();
@@ -137,6 +137,23 @@ export class TaskManagerService {
 			formData.append("filesContent", projectFiles[i].fileData);
 		}
 		formData.append("projectFilesJson", JSON.stringify({ projectFiles }));
+		return this.http.post(url, formData).toPromise();
+	}
+
+	getTaskFiles(projectID: number, taskID: number) {
+		return this.http.get(`/taskmanager/gettaskfiles/${projectID}/${taskID}`)
+			.map((response: Response) => {
+				return response.json() as TaskFile[];
+			})
+			.toPromise();
+	}
+	updateTaskFiles(projectID: number,taskID: number, taskFiles: TaskFile[]) {
+		const url = `/taskmanager/updatetaskfiles/${projectID}/${taskID}`;
+		let formData: FormData = new FormData();
+		for (let i = 0; i < taskFiles.length; i++) {
+			formData.append("filesContent", taskFiles[i].fileData);
+		}
+		formData.append("taskFilesJson", JSON.stringify({ taskFiles }));
 		return this.http.post(url, formData).toPromise();
 	}
 }

@@ -19,5 +19,4 @@ namespace TaskManager.Models
 	{
 		public List<ProjectFileSend> projectFiles { get; set; }
 	}
-
 }
