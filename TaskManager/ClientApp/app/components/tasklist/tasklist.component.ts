@@ -67,7 +67,8 @@ export class TaskListComponent {
 		});
 	}
 
-	edit_task(task: Task) {
+	edit_task(task: Task, e: any) {	
+		e.stopPropagation();
 		const disposable = this.dialogService.addDialog(EditTaskDialogComponent, { task: task }).subscribe((task) => {
 			if (task) {
 				
@@ -86,7 +87,8 @@ export class TaskListComponent {
 		});
 	}
 
-	delete_task(task: Task) {
+	delete_task(task: Task, e: any) {
+		e.stopPropagation();
 		const disposable = this.dialogService.addDialog(DeleteTaskDialogComponent, { task: task }).subscribe((isConfirmed) => {
 			if (isConfirmed) {
 				this.service.deleteTask(task)
@@ -130,7 +132,8 @@ export class TaskListComponent {
 		this.taskGrid.instance.refresh();
 	}
 
-	taskfiles(task: Task) {
+	taskfiles(task: Task, e: any) {
+		e.stopPropagation();
 		const disposable = this.dialogService.addDialog(TaskFilesDialogComponent, { project: this.project,task: task }).subscribe((taskfiles) => {
 			if (taskfiles) {
 				this.service.updateTaskFiles(this.project.projectID, task.taskID, taskfiles)

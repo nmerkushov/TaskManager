@@ -60,13 +60,13 @@
 				</dxo-pager>
 
 				<div *dxTemplate="let t of 'editTemplate'">
-					<button class="btn btn-warning btn-sm"><span class="dx-icon-edit" (click)="edit_task(t.data)"></span></button>
+					<button class="btn btn-warning btn-sm"><span class="dx-icon-edit" (click)="edit_task(t.data, $event)"></span></button>
 				</div>
 				<div *dxTemplate="let t of 'deleteTemplate'">
-					<button class="btn btn-danger btn-sm"><span class="dx-icon-trash" (click)="delete_task(t.data)"></span></button>
+					<button class="btn btn-danger btn-sm"><span class="dx-icon-trash" (click)="delete_task(t.data, $event)"></span></button>
 				</div>
 				<div *dxTemplate="let tf of 'taskFilesTemplate'">
-					<button class="btn btn-default btn-sm" (click)="taskfiles(tf.data)"><span class="dx-icon-folder"></span></button>
+					<button class="btn btn-default btn-sm" (click)="taskfiles(tf.data, $event)"><span class="dx-icon-folder"></span></button>
 				</div>
 			</dx-data-grid>
 			<dx-color-box #colorBox
