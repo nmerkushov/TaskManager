@@ -63,6 +63,7 @@ export class BankListComponent {
 			}
 			else {
 				console.info('Cancel dialog');
+				this.fillDatasource();
 			}
 		});
 	}

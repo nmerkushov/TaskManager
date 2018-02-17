@@ -63,6 +63,7 @@ export class PersonListComponent {
 			}
 			else {
 				console.info('Cancel dialog');
+				this.fillDatasource();
 			}
 		});
 	}

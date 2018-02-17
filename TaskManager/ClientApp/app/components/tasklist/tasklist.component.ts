@@ -70,6 +70,7 @@ export class TaskListComponent {
 	edit_task(task: Task) {
 		const disposable = this.dialogService.addDialog(EditTaskDialogComponent, { task: task }).subscribe((task) => {
 			if (task) {
+				
 				this.service.editTask(task)
 					.then(res => {
 						console.info('Update task:' + JSON.stringify(task));
@@ -80,6 +81,7 @@ export class TaskListComponent {
 			}
 			else {
 				console.info('Cancel dialog');
+				this.fillDatasource();
 			}
 		});
 	}

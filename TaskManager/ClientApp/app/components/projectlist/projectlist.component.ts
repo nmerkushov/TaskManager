@@ -64,6 +64,7 @@ export class ProjectListComponent {
 			}
 			else {
 				console.info('Cancel dialog');
+				this.fillDatasource(); 
 			}
 		});
 	}
