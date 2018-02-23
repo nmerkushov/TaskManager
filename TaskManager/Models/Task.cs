@@ -57,6 +57,6 @@ namespace TaskManager.Models
 		public string Notes { get; set; }
 		public string ResponseAction { get; set; }
 		public string RowColor { get; set; }
-		public ICollection<TaskFile> TaskFiles { get; set; } = new HashSet<TaskFile>();
+		public ICollection<TaskFile> TaskFiles { get; set; } = new List<TaskFile>();
 	}
 }

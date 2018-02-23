@@ -16,7 +16,7 @@ export class TaskManagerService {
 	}
 
 	getProjects() {
-		return this.http.get('/taskmanager/getprojects')
+		return this.http.get('/taskmanager/projects')
 			.map((response: Response) => {
 				return response.json() as Project[];
 			})
@@ -38,8 +38,16 @@ export class TaskManagerService {
 		return this.http.post(url, project).toPromise();
 	}
 
+	getProjectByID(projectID: number) {
+		return this.http.get(`/taskmanager/project/${projectID}`)
+			.map((response: Response) => {
+				return response.json() as Project;
+			})
+			.toPromise();
+	}
+
 	getBanks() {
-		return this.http.get('/taskmanager/getbanks')
+		return this.http.get('/taskmanager/banks')
 			.map((response: Response) => {
 				return response.json() as Bank[];
 			})
@@ -62,7 +70,7 @@ export class TaskManagerService {
 	}
 
 	getPersons() {
-		return this.http.get('/taskmanager/getpersons')
+		return this.http.get('/taskmanager/persons')
 			.map((response: Response) => {
 				return response.json() as Person[];
 			})
@@ -85,23 +93,16 @@ export class TaskManagerService {
 	}
 
 	getTasks(projectID: number) {
-		return this.http.get(`/taskmanager/gettasks/${projectID}`)
+		return this.http.get(`/taskmanager/project/${projectID}/tasks`)
 			.map((response: Response) => {
 				return response.json() as Task[];
 			})
 			.toPromise();
 	}
 
-	getProjectByID(projectID: number) {
-		return this.http.get(`/taskmanager/getprojectbyid/${projectID}`)
-			.map((response: Response) => {
-				return response.json() as Project;
-			})
-			.toPromise();
-	}
-
+	
 	getTaskStatuses() {
-		return this.http.get('/taskmanager/gettaskstatuses')
+		return this.http.get('/taskmanager/taskstatuses')
 			.map((response: Response) => {
 				return response.json() as TaskStatus[];
 			})
@@ -124,14 +125,15 @@ export class TaskManagerService {
 	}
 
 	getProjectFiles(projectID: number) {
-		return this.http.get(`/taskmanager/getprojectfiles/${projectID}`)
+		return this.http.get(`/taskmanager/project/${projectID}/projectfiles`)
 			.map((response: Response) => {
 				return response.json() as ProjectFile[];
 			})
 			.toPromise();
 	}
+
 	updateProjectFiles(projectID: number, projectFiles: ProjectFile[]) {
-		const url = `/taskmanager/updateprojectfiles/${projectID}`;
+		const url = `/taskmanager/project/${projectID}/updateprojectfiles`;
 		let formData: FormData = new FormData();
 		for (let i = 0; i < projectFiles.length; i++) {
 			formData.append("filesContent", projectFiles[i].fileData);
@@ -141,14 +143,15 @@ export class TaskManagerService {
 	}
 
 	getTaskFiles(projectID: number, taskID: number) {
-		return this.http.get(`/taskmanager/gettaskfiles/${projectID}/${taskID}`)
+		return this.http.get(`taskmanager/project/${projectID}/task/${taskID}/taskfiles`)
 			.map((response: Response) => {
 				return response.json() as TaskFile[];
 			})
 			.toPromise();
 	}
+
 	updateTaskFiles(projectID: number,taskID: number, taskFiles: TaskFile[]) {
-		const url = `/taskmanager/updatetaskfiles/${projectID}/${taskID}`;
+		const url = `taskmanager/project/${projectID}/task/${taskID}/updatetaskfiles`;
 		let formData: FormData = new FormData();
 		for (let i = 0; i < taskFiles.length; i++) {
 			formData.append("filesContent", taskFiles[i].fileData);

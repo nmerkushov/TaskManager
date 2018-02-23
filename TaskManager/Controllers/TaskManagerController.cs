@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +23,7 @@ namespace TaskManager.Controllers
 			return View();
 		}
 
+		[Route("taskmanager/projects")]
 		public IActionResult GetProjects()
 		{
 			var projects = _context.Projects
@@ -80,7 +77,7 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
-		[Route("taskmanager/getprojectbyid/{projectID}")]
+		[Route("taskmanager/project/{projectID}")]
 		public IActionResult GetProjectByID(int projectID)
 		{
 			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
@@ -90,6 +87,7 @@ namespace TaskManager.Controllers
 			return new ObjectResult(project);
 		}
 
+		[Route("taskmanager/banks")]
 		public IActionResult GetBanks()
 		{
 			var banks = _context.Banks.ToList();
@@ -122,6 +120,7 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
+		[Route("taskmanager/persons")]
 		public IActionResult GetPersons()
 		{
 			var persons = _context.Persons.ToList();
@@ -154,7 +153,7 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
-		[Route("taskmanager/gettasks/{projectID}")]
+		[Route("taskmanager/project/{projectID}/tasks")]
 		public IActionResult GetTasks(int projectID)
 		{
 			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
@@ -253,6 +252,7 @@ namespace TaskManager.Controllers
 			return Ok();
 		}
 
+		[Route("taskmanager/taskstatuses")]
 		public IActionResult GetTaskStatuses()
 		{
 			var taskStatuses = _context.TaskStatuses.ToList();
@@ -260,7 +260,7 @@ namespace TaskManager.Controllers
 			return new ObjectResult(taskStatuses);
 		}
 
-		[Route("taskmanager/getprojectfiles/{projectID}")]
+		[Route("taskmanager/project/{projectID}/projectfiles")]
 		public IActionResult GetProjectFiles(int projectID)
 		{
 			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
@@ -269,7 +269,7 @@ namespace TaskManager.Controllers
 			return new ObjectResult(project == null ? new HashSet<ProjectFile>() : project.ProjectFiles);
 		}
 
-		[HttpPost, Route("taskmanager/updateprojectfiles/{projectID}")]
+		[HttpPost, Route("taskmanager/project/{projectID}/updateprojectfiles")]
 		public IActionResult UpdateProjectFiles(List<IFormFile> filesContent, string projectFilesJson, int projectID)
 		{
 			List<ProjectFileSend> projectFiles = JsonConvert.DeserializeObject<ProjectFilesList>(projectFilesJson).projectFiles;
@@ -333,7 +333,7 @@ namespace TaskManager.Controllers
 			return $"P{projectFileID.ToString().Trim().PadLeft(7, '0')}";
 		}
 
-		[Route("taskmanager/downloadprojectfile/{projectID}/{projectFileID}")]
+		[Route("taskmanager/project/{projectID}/downloadprojectfile/{projectFileID}")]
 		public IActionResult DownloadProjectFile(int projectID, int projectFileID)
 		{
 			string path = $"./StoredData/{ProjectFileIDToName(projectFileID)}.dat";
@@ -363,7 +363,7 @@ namespace TaskManager.Controllers
 			return NotFound();
 		}
 
-		[Route("taskmanager/gettaskfiles/{projectID}/{taskID}")]
+		[Route("taskmanager/project/{projectID}/task/{taskID}/taskfiles")]
 		public IActionResult GetTaskFiles(int projectID, int taskID)
 		{
 			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
@@ -380,7 +380,7 @@ namespace TaskManager.Controllers
 			return new ObjectResult(new HashSet<TaskFile>());
 		}
 
-		[HttpPost, Route("taskmanager/updatetaskfiles/{projectID}/{taskID}")]
+		[HttpPost, Route("taskmanager/project/{projectID}/task/{taskID}/updatetaskfiles")]
 		public IActionResult UpdateTaskFiles(List<IFormFile> filesContent, string taskFilesJson, int projectID, int taskID)
 		{
 			List<TaskFileSend> taskFiles = JsonConvert.DeserializeObject<TaskFilesList>(taskFilesJson).taskFiles;
@@ -448,7 +448,8 @@ namespace TaskManager.Controllers
 			return $"T{taskFileID.ToString().Trim().PadLeft(7, '0')}";
 		}
 
-		[Route("taskmanager/downloadtaskfile/{projectID}/{taskID}/{taskFileID}")]
+
+		[Route("taskmanager/project/{projectID}/task/{taskID}/downloadtaskfile/{taskFileID}")]
 		public IActionResult DownloadTaskFile(int projectID, int taskID, int taskFileID)
 		{
 			string path = $"./StoredData/{TaskFileIDToName(taskFileID)}.dat";

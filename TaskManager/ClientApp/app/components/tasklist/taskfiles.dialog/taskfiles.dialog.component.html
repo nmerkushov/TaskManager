@@ -25,7 +25,7 @@
 						<button class="btn btn-default btn-sm" (click)="selFile.click()"><span class="dx-icon-upload"></span></button>
 					</div>
 					<div *dxTemplate="let tf of 'downloadTemplate'">
-						<a *ngIf="tf.data.projectFileID!=0" class="btn btn-default btn-sm" href="taskmanager/downloadtaskfile/{{this.project.projectID}}/{{tf.data.taskID}}/{{tf.data.taskFileID}}"><span class="dx-icon-download"></span></a>
+						<a *ngIf="tf.data.projectFileID!=0" class="btn btn-default btn-sm" href="taskmanager/project/{{this.project.projectID}}/task/{{tf.data.taskID}}/downloadtaskfile/{{tf.data.taskFileID}}"><span class="dx-icon-download"></span></a>
 					</div>
 				</dx-data-grid>
 			</div>

@@ -12,8 +12,8 @@ namespace TaskManager.Models
 		public Person ContactPerson { get; set; }
 		public string Director { get; set; }
 		public string PhoneFaxes { get; set; }
-		public ICollection<Task> Tasks { get; set; } = new HashSet<Task>();
-		public ICollection<ProjectFile> ProjectFiles { get; set; } = new HashSet<ProjectFile>();
+		public ICollection<Task> Tasks { get; set; } = new List<Task>();
+		public ICollection<ProjectFile> ProjectFiles { get; set; } = new List<ProjectFile>();
 
 		public string BankName
 		{
