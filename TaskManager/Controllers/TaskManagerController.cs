@@ -1,21 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Models;
+using TaskManager.Services;
 
 namespace TaskManager.Controllers
 {
 	public class TaskManagerController : Controller
 	{
-		private TaskManagerContext _context;
+		private readonly IProjectService _projectService;
+		private readonly IBankService _bankService;
+		private readonly IPersonService _personService;
+		private readonly ITaskService _taskService;
 
-		public TaskManagerController(TaskManagerContext context)
+		public TaskManagerController(IProjectService projectService, IBankService bankService, IPersonService personService, ITaskService taskService)
 		{
-			_context = context;
+			_projectService = projectService;
+			_bankService = bankService;
+			_personService = personService;
+			_taskService = taskService;
 		}
 
 		public IActionResult ProjectList()
@@ -24,308 +32,124 @@ namespace TaskManager.Controllers
 		}
 
 		[Route("taskmanager/projects")]
-		public IActionResult GetProjects()
+		public async Task<IActionResult> GetProjects()
 		{
-			var projects = _context.Projects
-				.Include(p => p.Bank)
-				.Include(p => p.ContactPerson)
-				.ToList();
-
-			return new ObjectResult(projects);
+			return new ObjectResult(await _projectService.GetProjects());
 		}
 
 		[HttpPost]
-		public IActionResult AddNewProject([FromBody]Project project)
+		public async Task<IActionResult> AddNewProject([FromBody]Project project)
 		{
-			if (project.BankID == 0)
-			{
-				project.BankID = null;
-			}
-			if (project.ContactPersonID == 0)
-			{
-				project.ContactPersonID = null;
-			}
-			_context.Projects.Add(project);
-			_context.SaveChanges();
-
-			return Ok();
+			return new OkObjectResult(await _projectService.AddNewProject(project));
 		}
 
 		[HttpPost]
-		public IActionResult EditProject([FromBody]Project project)
+		public async Task<IActionResult> EditProject([FromBody]Project project)
 		{
-			if (project.BankID == 0)
-			{
-				project.BankID = null;
-			}
-			if (project.ContactPersonID == 0)
-			{
-				project.ContactPersonID = null;
-			}
-			project.Bank = null;
-			project.ContactPerson = null;
-			_context.Projects.Update(project);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _projectService.EditProject(project));
 		}
 
 		[HttpPost]
-		public IActionResult DeleteProject([FromBody]Project project)
+		public async Task<IActionResult> DeleteProject([FromBody]Project project)
 		{
-			_context.Projects.Remove(project);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _projectService.DeleteProject(project));
 		}
 
 		[Route("taskmanager/project/{projectID}")]
-		public IActionResult GetProjectByID(int projectID)
-		{
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.Bank)
-				.Include(p => p.ContactPerson)
-				.FirstOrDefault();
-			return new ObjectResult(project);
+		public async Task<IActionResult> GetProjectByID(int projectID)
+		{			
+			return new ObjectResult(await _projectService.GetProjects());
 		}
 
 		[Route("taskmanager/banks")]
-		public IActionResult GetBanks()
+		public async Task<IActionResult> GetBanks()
 		{
-			var banks = _context.Banks.ToList();
-
-			return new ObjectResult(banks);
+			return new ObjectResult(await _bankService.GetBanks());
 		}
 
 		[HttpPost]
-		public IActionResult AddNewBank([FromBody]Bank bank)
+		public async Task<IActionResult> AddNewBank([FromBody]Bank bank)
 		{
-			_context.Banks.Add(bank);
-			_context.SaveChanges();
-
-			return Ok();
+			return new OkObjectResult(await _bankService.AddNewBank(bank));
 		}
 
 		[HttpPost]
-		public IActionResult EditBank([FromBody]Bank bank)
+		public async Task<IActionResult> EditBank([FromBody]Bank bank)
 		{
-			_context.Banks.Update(bank);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _bankService.EditBank(bank));
 		}
 
 		[HttpPost]
-		public IActionResult DeleteBank([FromBody]Bank bank)
+		public async Task<IActionResult> DeleteBank([FromBody]Bank bank)
 		{
-			_context.Banks.Remove(bank);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _bankService.DeleteBank(bank));
 		}
 
 		[Route("taskmanager/persons")]
-		public IActionResult GetPersons()
+		public async Task<IActionResult> GetPersons()
 		{
-			var persons = _context.Persons.ToList();
-
-			return new ObjectResult(persons);
+			return new ObjectResult(await _personService.GetPersons());
 		}
 
 		[HttpPost]
-		public IActionResult AddNewPerson([FromBody]Person person)
+		public async Task<IActionResult> AddNewPerson([FromBody]Person person)
 		{
-			_context.Persons.Add(person);
-			_context.SaveChanges();
-
-			return Ok();
+			return new OkObjectResult(await _personService.AddNewPerson(person));
 		}
 
 		[HttpPost]
-		public IActionResult EditPerson([FromBody]Person person)
+		public async Task<IActionResult> EditPerson([FromBody]Person person)
 		{
-			_context.Persons.Update(person);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _personService.EditPerson(person));
 		}
 
 		[HttpPost]
-		public IActionResult DeletePerson([FromBody]Person person)
+		public async Task<IActionResult> DeletePerson([FromBody]Person person)
 		{
-			_context.Persons.Remove(person);
-			_context.SaveChanges();
-			return Ok();
+			return new OkObjectResult(await _personService.DeletePerson(person));
 		}
 
 		[Route("taskmanager/project/{projectID}/tasks")]
-		public IActionResult GetTasks(int projectID)
+		public async Task<IActionResult> GetTasks(int projectID)
 		{
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.Tasks).ThenInclude(t => t.ResponsiblePerson)
-				.Include(p => p.Tasks).ThenInclude(t => t.Status)
-				.FirstOrDefault();
-			return new ObjectResult(project == null ? new HashSet<Task>() : project.Tasks);
+			return new ObjectResult(await _taskService.GetTasks(projectID));
 		}
 
 		[HttpPost]
-		public IActionResult AddNewTask([FromBody]Task task)
+		public async Task<IActionResult> AddNewTask([FromBody]ProjectTask task)
 		{
-			if (task.StatusID == 0)
-			{
-				task.StatusID = null;
-			}
-			if (task.ResponsiblePersonID == 0)
-			{
-				task.ResponsiblePersonID = null;
-			}
-			task.Status = null;
-			task.ResponsiblePerson = null;
-
-			Project project = _context.Projects.Where(p => p.ProjectID == task.ProjectID)
-				.Include(p => p.Tasks)
-				.FirstOrDefault();
-
-			if (project != null)
-			{
-				project.Tasks.Add(task);
-				_context.Projects.Update(project);
-				_context.SaveChanges();
-			}
-
-			return Ok();
+			return new OkObjectResult(await _taskService.DeleteTask(task));
 		}
 
 		[HttpPost]
-		public IActionResult EditTask([FromBody]Task task)
+		public async Task<IActionResult> EditTask([FromBody]ProjectTask task)
 		{
-			Project project = _context.Projects.Where(p => p.ProjectID == task.ProjectID)
-				.Include(p => p.Tasks)
-				.FirstOrDefault();
-
-			if (project != null)
-			{
-				Task dbTask = project.Tasks.Where(t => t.TaskID == task.TaskID).FirstOrDefault();
-				if (dbTask != null)
-				{
-					dbTask.TaskName = task.TaskName;
-					dbTask.Priority = task.Priority;
-					if (task.ResponsiblePersonID == 0)
-					{
-						dbTask.ResponsiblePersonID = null;
-					}
-					else
-					{
-						dbTask.ResponsiblePersonID = task.ResponsiblePersonID;
-					}
-					dbTask.ResponsiblePerson = null;
-					dbTask.UpToDate = task.UpToDate;
-					if (task.StatusID == 0)
-					{
-						dbTask.StatusID = null;
-					}
-					else
-					{
-						dbTask.StatusID = task.StatusID;
-					}
-					dbTask.Status = null;
-					dbTask.Notes = task.Notes;
-					dbTask.ResponseAction = task.ResponseAction;
-					dbTask.RowColor = task.RowColor;
-
-					_context.Projects.Update(project);
-					_context.SaveChanges();
-				}
-			}
-
-			return Ok();
+			return new OkObjectResult(await _taskService.EditTask(task));
 		}
 
 		[HttpPost]
-		public IActionResult DeleteTask([FromBody]Task task)
+		public async Task<IActionResult> DeleteTask([FromBody]ProjectTask task)
 		{
-			Project project = _context.Projects.Where(p => p.ProjectID == task.ProjectID)
-				.Include(p => p.Tasks)
-				.FirstOrDefault();
-
-			if (project != null)
-			{
-				project.Tasks.Remove(project.Tasks.Where(t => t.TaskID == task.TaskID).FirstOrDefault());
-				_context.Projects.Update(project);
-				_context.SaveChanges();
-			}
-			return Ok();
+			return new OkObjectResult(await _taskService.DeleteTask(task));
 		}
 
 		[Route("taskmanager/taskstatuses")]
-		public IActionResult GetTaskStatuses()
+		public async Task<IActionResult> GetTaskStatuses()
 		{
-			var taskStatuses = _context.TaskStatuses.ToList();
-
-			return new ObjectResult(taskStatuses);
+			return new ObjectResult(await _taskService.GetTaskStatuses());
 		}
 
 		[Route("taskmanager/project/{projectID}/projectfiles")]
-		public IActionResult GetProjectFiles(int projectID)
+		public async Task<IActionResult> GetProjectFiles(int projectID)
 		{
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.ProjectFiles)
-				.FirstOrDefault();
-			return new ObjectResult(project == null ? new HashSet<ProjectFile>() : project.ProjectFiles);
+			return new ObjectResult(await _projectService.GetProjectFiles(projectID));
 		}
 
 		[HttpPost, Route("taskmanager/project/{projectID}/updateprojectfiles")]
-		public IActionResult UpdateProjectFiles(List<IFormFile> filesContent, string projectFilesJson, int projectID)
+		public async Task<IActionResult> UpdateProjectFiles(List<IFormFile> filesContent, string projectFilesJson, int projectID)
 		{
-			List<ProjectFileSend> projectFiles = JsonConvert.DeserializeObject<ProjectFilesList>(projectFilesJson).projectFiles;
-
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.ProjectFiles)
-				.FirstOrDefault();
-
-			if (project != null)
-			{
-				for (int i = 0; i < projectFiles.Count(); i++)
-				{
-					if (projectFiles[i].IsDeleted)
-					{
-						project.ProjectFiles.Remove(project.ProjectFiles.Where(pf => pf.ProjectFileID == projectFiles[i].ProjectFileID).FirstOrDefault());
-
-						_context.Projects.Update(project);
-						_context.SaveChanges();
-
-						DeleteProjectFile(projectFiles[i].ProjectFileID);
-					}
-					else if (projectFiles[i].IsAdded)
-					{
-						ProjectFile pf = new ProjectFile();
-						pf.ProjectID = projectID;
-						pf.FileName = projectFiles[i].FileName;
-						project.ProjectFiles.Add(pf);
-
-						_context.Projects.Update(project);
-						_context.SaveChanges();
-
-						Stream fileStream = filesContent[i].OpenReadStream();
-						SaveProjectFile(pf.ProjectFileID, fileStream);
-					}
-				}
-			}
-
+			await _projectService.UpdateProjectFiles(filesContent, projectFilesJson, projectID);
 			return Ok();
-		}
-
-		private void DeleteProjectFile(int projectFileID)
-		{
-			FileInfo fileInfo = new FileInfo($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat");
-			if (fileInfo.Exists)
-			{
-				fileInfo.Delete();
-			}
-		}
-
-		private void SaveProjectFile(int projectFileID, Stream fileStream)
-		{
-			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{ProjectFileIDToName(projectFileID)}.dat")))
-			{
-
-				fileStream.CopyTo(streamToWrite.BaseStream);
-			}
 		}
 
 		private string ProjectFileIDToName(int projectFileID)
@@ -334,29 +158,22 @@ namespace TaskManager.Controllers
 		}
 
 		[Route("taskmanager/project/{projectID}/downloadprojectfile/{projectFileID}")]
-		public IActionResult DownloadProjectFile(int projectID, int projectFileID)
+		public async Task<IActionResult> DownloadProjectFile(int projectID, int projectFileID)
 		{
 			string path = $"./StoredData/{ProjectFileIDToName(projectFileID)}.dat";
 			if (System.IO.File.Exists(path))
 			{
-				Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-					.Include(p => p.ProjectFiles)
-					.FirstOrDefault();
-				if (project != null)
+				ProjectFile projectFile = await _projectService.GetProjectFile(projectID, projectFileID);
+				if (projectFile != null)
 				{
-					ProjectFile projectFile = project.ProjectFiles.Where(pf => pf.ProjectFileID == projectFileID).FirstOrDefault();
-					if (projectFile != null)
+					var memory = new MemoryStream();
+					using (var stream = new FileStream(path, FileMode.Open))
 					{
-						var memory = new MemoryStream();
-						using (var stream = new FileStream(path, FileMode.Open))
-						{
-							byte[] bytes = new byte[stream.Length];
-							stream.Read(bytes, 0, (int)stream.Length);
-							memory.Write(bytes, 0, (int)stream.Length);
-							var response = File(bytes, "application/octet-stream", projectFile.FileName); // FileStreamResult
-							return response;
-
-						}
+						byte[] bytes = new byte[stream.Length];
+						stream.Read(bytes, 0, (int)stream.Length);
+						memory.Write(bytes, 0, (int)stream.Length);
+						var response = File(bytes, "application/octet-stream", projectFile.FileName);
+						return response;
 					}
 				}
 			}
@@ -364,83 +181,16 @@ namespace TaskManager.Controllers
 		}
 
 		[Route("taskmanager/project/{projectID}/task/{taskID}/taskfiles")]
-		public IActionResult GetTaskFiles(int projectID, int taskID)
+		public async Task<IActionResult> GetTaskFiles(int projectID, int taskID)
 		{
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
-				.FirstOrDefault();
-			if (project != null)
-			{
-				Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
-				if (task != null)
-				{
-					return new ObjectResult(task.TaskFiles);
-				}
-			}
-			return new ObjectResult(new HashSet<TaskFile>());
+			return new ObjectResult(await _taskService.GetTaskFiles(projectID, taskID));
 		}
 
 		[HttpPost, Route("taskmanager/project/{projectID}/task/{taskID}/updatetaskfiles")]
-		public IActionResult UpdateTaskFiles(List<IFormFile> filesContent, string taskFilesJson, int projectID, int taskID)
+		public async Task<IActionResult> UpdateTaskFiles(List<IFormFile> filesContent, string taskFilesJson, int projectID, int taskID)
 		{
-			List<TaskFileSend> taskFiles = JsonConvert.DeserializeObject<TaskFilesList>(taskFilesJson).taskFiles;
-
-			Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-				.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
-				.FirstOrDefault();
-
-			if (project != null)
-			{
-				Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
-				if (task != null)
-				{
-					for (int i = 0; i < taskFiles.Count(); i++)
-					{
-						if (taskFiles[i].IsDeleted)
-						{
-							task.TaskFiles.Remove(task.TaskFiles.Where(tf => tf.TaskFileID == taskFiles[i].TaskFileID).FirstOrDefault());
-
-							_context.Projects.Update(project);
-							_context.SaveChanges();
-
-							DeleteTaskFile(taskFiles[i].TaskFileID);
-						}
-						else if (taskFiles[i].IsAdded)
-						{
-							TaskFile tf = new TaskFile();
-							tf.TaskID = taskID;
-							tf.FileName = taskFiles[i].FileName;
-							task.TaskFiles.Add(tf);
-
-							_context.Projects.Update(project);
-							_context.SaveChanges();
-
-							Stream fileStream = filesContent[i].OpenReadStream();
-							SaveTaskFile(tf.TaskFileID, fileStream);
-						}
-					}
-				}
-			}
-
+			await _taskService.UpdateTaskFiles(filesContent, taskFilesJson, projectID, taskID);
 			return Ok();
-		}
-
-		private void DeleteTaskFile(int taskFileID)
-		{
-			FileInfo fileInfo = new FileInfo($"./StoredData/{TaskFileIDToName(taskFileID)}.dat");
-			if (fileInfo.Exists)
-			{
-				fileInfo.Delete();
-			}
-		}
-
-		private void SaveTaskFile(int taskFileID, Stream fileStream)
-		{
-			using (StreamWriter streamToWrite = new StreamWriter(System.IO.File.Create($"./StoredData/{TaskFileIDToName(taskFileID)}.dat")))
-			{
-
-				fileStream.CopyTo(streamToWrite.BaseStream);
-			}
 		}
 
 		private string TaskFileIDToName(int taskFileID)
@@ -448,34 +198,23 @@ namespace TaskManager.Controllers
 			return $"T{taskFileID.ToString().Trim().PadLeft(7, '0')}";
 		}
 
-
 		[Route("taskmanager/project/{projectID}/task/{taskID}/downloadtaskfile/{taskFileID}")]
-		public IActionResult DownloadTaskFile(int projectID, int taskID, int taskFileID)
+		public async Task<IActionResult> DownloadTaskFile(int projectID, int taskID, int taskFileID)
 		{
 			string path = $"./StoredData/{TaskFileIDToName(taskFileID)}.dat";
 			if (System.IO.File.Exists(path))
 			{
-				Project project = _context.Projects.Where(p => p.ProjectID == projectID)
-					.Include(p => p.Tasks).ThenInclude(t => t.TaskFiles)
-					.FirstOrDefault();
-				if (project != null)
+				TaskFile taskFile = await _taskService.GetTaskFile(projectID, taskID, taskFileID);
+				if (taskFile != null)
 				{
-					Task task = project.Tasks.Where(t => t.TaskID == taskID).FirstOrDefault();
-					if (task != null)
+					var memory = new MemoryStream();
+					using (var stream = new FileStream(path, FileMode.Open))
 					{
-						TaskFile taskFile = task.TaskFiles.Where(tf => tf.TaskFileID == taskFileID).FirstOrDefault();
-						if (taskFile != null)
-						{
-							var memory = new MemoryStream();
-							using (var stream = new FileStream(path, FileMode.Open))
-							{
-								byte[] bytes = new byte[stream.Length];
-								stream.Read(bytes, 0, (int)stream.Length);
-								memory.Write(bytes, 0, (int)stream.Length);
-								var response = File(bytes, "application/octet-stream", taskFile.FileName); // FileStreamResult
-								return response;
-							}
-						}
+						byte[] bytes = new byte[stream.Length];
+						stream.Read(bytes, 0, (int)stream.Length);
+						memory.Write(bytes, 0, (int)stream.Length);
+						var response = File(bytes, "application/octet-stream", taskFile.FileName); // FileStreamResult
+						return response;
 					}
 				}
 			}

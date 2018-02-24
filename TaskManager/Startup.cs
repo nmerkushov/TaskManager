@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Models;
+using TaskManager.Services;
 
 namespace TaskManager
 {
@@ -27,6 +28,10 @@ namespace TaskManager
 			services.AddScoped<TaskManagerContext>();
 			services.AddDbContext<TaskManagerContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("TaskManager")));
+			services.AddScoped<IProjectService, ProjectService>();
+			services.AddScoped<IBankService, BankService>();
+			services.AddScoped<IPersonService, PersonService>();
+			services.AddScoped<ITaskService, TaskService>();
 			services.AddMvc();
         }
 

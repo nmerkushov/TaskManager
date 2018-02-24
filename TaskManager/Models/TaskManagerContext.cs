@@ -29,11 +29,11 @@ namespace TaskManager.Models
 			modelBuilder.Entity<ProjectFile>().HasKey(x => x.ProjectFileID);
 			modelBuilder.Entity<ProjectFile>().Property(x => x.ProjectFileID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqProjectFileID");
 
-			modelBuilder.Entity<Task>().ToTable("Task");
-			modelBuilder.Entity<Task>().HasKey(x => x.TaskID);
-			modelBuilder.Entity<Task>().HasOne(x => x.ResponsiblePerson).WithMany().HasPrincipalKey(x => x.PersonID);
-			modelBuilder.Entity<Task>().HasOne(x => x.Status).WithMany().HasForeignKey(x => x.StatusID);
-			modelBuilder.Entity<Task>().Property(x => x.TaskID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqTaskID");
+			modelBuilder.Entity<ProjectTask>().ToTable("Task");
+			modelBuilder.Entity<ProjectTask>().HasKey(x => x.TaskID);
+			modelBuilder.Entity<ProjectTask>().HasOne(x => x.ResponsiblePerson).WithMany().HasPrincipalKey(x => x.PersonID);
+			modelBuilder.Entity<ProjectTask>().HasOne(x => x.Status).WithMany().HasForeignKey(x => x.StatusID);
+			modelBuilder.Entity<ProjectTask>().Property(x => x.TaskID).HasDefaultValueSql("NEXT VALUE FOR dbo.SeqTaskID");
 
 			modelBuilder.Entity<TaskFile>().ToTable("TaskFile");
 			modelBuilder.Entity<TaskFile>().HasKey(x => x.TaskFileID);

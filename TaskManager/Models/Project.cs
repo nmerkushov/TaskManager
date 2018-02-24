@@ -12,7 +12,7 @@ namespace TaskManager.Models
 		public Person ContactPerson { get; set; }
 		public string Director { get; set; }
 		public string PhoneFaxes { get; set; }
-		public ICollection<Task> Tasks { get; set; } = new List<Task>();
+		public ICollection<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
 		public ICollection<ProjectFile> ProjectFiles { get; set; } = new List<ProjectFile>();
 
 		public string BankName

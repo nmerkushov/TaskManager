@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TaskManager.Models
 {
-	public class Task
+	public class ProjectTask
 	{
 		public int TaskID { get; set; }
 		public int ProjectID { get; set; }
