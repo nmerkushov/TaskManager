@@ -5,13 +5,9 @@ import { Title } from '@angular/platform-browser';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent, DxColorBoxComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
-import { Project } from '../shared/models/project';
-import { Task } from '../shared/models/task';
+import { Project, Task } from '../shared/models/shared.models';
 import { TaskManagerService } from '../shared/services/taskManager.service';
-import { AddNewTaskDialogComponent } from './addnewtask.dialog/addnewtask.dialog.component';
-import { EditTaskDialogComponent } from './edittask.dialog/edittask.dialog.component';
-import { DeleteTaskDialogComponent } from './deletetask.dialog/deletetask.dialog.component';
-import { TaskFilesDialogComponent } from './taskfiles.dialog/taskfiles.dialog.component';
+import { AddNewTaskDialogComponent, EditTaskDialogComponent, DeleteTaskDialogComponent, TaskFilesDialogComponent } from './task.shared.component';
 
 @Component({
 	selector: 'tasklist',

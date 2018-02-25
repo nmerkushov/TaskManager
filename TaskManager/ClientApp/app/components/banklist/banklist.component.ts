@@ -5,11 +5,9 @@ import { Router } from '@angular/router';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
-import { Bank } from '../shared/models/bank';
+import { Bank } from '../shared/models/shared.models';
 import { TaskManagerService } from '../shared/services/taskManager.service';
-import { AddNewBankDialogComponent } from './addnewbank.dialog/addnewbank.dialog.component';
-import { EditBankDialogComponent } from './editbank.dialog/editbank.dialog.component';
-import { DeleteBankDialogComponent } from './deletebank.dialog/deletebank.dialog.component';
+import { AddNewBankDialogComponent, EditBankDialogComponent, DeleteBankDialogComponent } from './bank.shared.component';
 
 @Component({
 	selector: 'banklist',

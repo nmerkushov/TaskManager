@@ -1,9 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
-import { Task } from '../../shared/models/task';
-import { TaskStatus } from '../../shared/models/taskstatus';
-import { Person } from '../../shared/models/person';
+import { Task, TaskStatus, Person } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'addnewtask-dialog',

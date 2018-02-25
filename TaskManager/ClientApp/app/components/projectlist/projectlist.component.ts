@@ -5,12 +5,9 @@ import { Router } from '@angular/router';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
-import { Project } from '../shared/models/project';
+import { Project } from '../shared/models/shared.models';
 import { TaskManagerService } from '../shared/services/taskManager.service';
-import { AddNewProjectDialogComponent } from './addnewproject.dialog/addnewproject.dialog.component';
-import { EditProjectDialogComponent } from './editproject.dialog/editproject.dialog.component';
-import { DeleteProjectDialogComponent } from './deleteproject.dialog/deleteproject.dialog.component';
-import { ProjectFilesDialogComponent } from './projectfiles.dialog/projectfiles.dialog.component';
+import { AddNewProjectDialogComponent, EditProjectDialogComponent, DeleteProjectDialogComponent, ProjectFilesDialogComponent } from './project.shared.component';
 
 @Component({
 	selector: 'projectlist',

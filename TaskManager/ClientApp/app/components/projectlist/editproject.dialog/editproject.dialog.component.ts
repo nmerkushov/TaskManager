@@ -1,9 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
-import { Project, IOneProject } from '../../shared/models/project';
-import { Bank } from '../../shared/models/bank';
-import { Person } from '../../shared/models/person';
+import { Project, IOneProject, Bank, Person } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'editproject-dialog',

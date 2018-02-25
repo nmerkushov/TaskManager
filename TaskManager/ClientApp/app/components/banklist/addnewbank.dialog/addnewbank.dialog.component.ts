@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
-import { Bank } from '../../shared/models/bank';
+import { Bank } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'addnewbank-dialog',

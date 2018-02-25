@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { Task, IOneTask } from '../../shared/models/task';
+import { Task, IOneTask } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'deletetask-dialog',

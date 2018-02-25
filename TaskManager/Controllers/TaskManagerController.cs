@@ -58,7 +58,7 @@ namespace TaskManager.Controllers
 		[Route("taskmanager/project/{projectID}")]
 		public async Task<IActionResult> GetProjectByID(int projectID)
 		{			
-			return new ObjectResult(await _projectService.GetProjects());
+			return new ObjectResult(await _projectService.GetProjectByID(projectID));
 		}
 
 		[Route("taskmanager/banks")]
@@ -118,7 +118,7 @@ namespace TaskManager.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddNewTask([FromBody]ProjectTask task)
 		{
-			return new OkObjectResult(await _taskService.DeleteTask(task));
+			return new OkObjectResult(await _taskService.AddNewTask(task));
 		}
 
 		[HttpPost]

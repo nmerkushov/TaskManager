@@ -5,11 +5,9 @@ import { Router } from '@angular/router';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import 'rxjs/Rx';
-import { Person } from '../shared/models/person';
+import { Person } from '../shared/models/shared.models';
 import { TaskManagerService } from '../shared/services/taskManager.service';
-import { AddNewPersonDialogComponent } from './addnewperson.dialog/addnewperson.dialog.component';
-import { EditPersonDialogComponent } from './editperson.dialog/editperson.dialog.component';
-import { DeletePersonDialogComponent } from './deleteperson.dialog/deleteperson.dialog.component';
+import { AddNewPersonDialogComponent, EditPersonDialogComponent, DeletePersonDialogComponent } from './person.shared.component';
 
 @Component({
 	selector: 'personlist',

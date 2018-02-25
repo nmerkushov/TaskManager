@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { Bank, IOneBank } from '../../shared/models/bank';
+import { Bank, IOneBank } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'deletebank-dialog',

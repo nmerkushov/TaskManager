@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { Person, IOnePerson } from '../../shared/models/person';
+import { Person, IOnePerson } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'deleteperson-dialog',

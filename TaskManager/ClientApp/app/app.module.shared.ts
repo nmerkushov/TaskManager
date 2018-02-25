@@ -5,25 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { DevExtremeModule } from 'devextreme-angular';
 import { AppComponent } from './components/app/app.component';
-import { ProjectListComponent } from './components/projectlist/projectlist.component';
-import { AddNewProjectDialogComponent } from './components/projectlist/addnewproject.dialog/addnewproject.dialog.component';
-import { EditProjectDialogComponent } from './components/projectlist/editproject.dialog/editproject.dialog.component';
-import { DeleteProjectDialogComponent } from './components/projectlist/deleteproject.dialog/deleteproject.dialog.component';
-import { ProjectFilesDialogComponent } from './components/projectlist/projectfiles.dialog/projectfiles.dialog.component';
-import { TaskListComponent } from './components/tasklist/tasklist.component';
-import { AddNewTaskDialogComponent } from './components/tasklist/addnewtask.dialog/addnewtask.dialog.component';
-import { EditTaskDialogComponent } from './components/tasklist/edittask.dialog/edittask.dialog.component';
-import { DeleteTaskDialogComponent } from './components/tasklist/deletetask.dialog/deletetask.dialog.component';
-import { TaskFilesDialogComponent } from './components/tasklist/taskfiles.dialog/taskfiles.dialog.component';
-import { BankListComponent } from './components/banklist/banklist.component';
-import { AddNewBankDialogComponent } from './components/banklist/addnewbank.dialog/addnewbank.dialog.component';
-import { EditBankDialogComponent } from './components/banklist/editbank.dialog/editbank.dialog.component';
-import { DeleteBankDialogComponent } from './components/banklist/deletebank.dialog/deletebank.dialog.component';
-import { PersonListComponent } from './components/personlist/personlist.component';
-import { AddNewPersonDialogComponent } from './components/personlist/addnewperson.dialog/addnewperson.dialog.component';
-import { EditPersonDialogComponent } from './components/personlist/editperson.dialog/editperson.dialog.component';
-import { DeletePersonDialogComponent } from './components/personlist/deleteperson.dialog/deleteperson.dialog.component';
-
+import { ProjectListComponent, AddNewProjectDialogComponent, EditProjectDialogComponent, DeleteProjectDialogComponent, ProjectFilesDialogComponent } from './components/projectlist/project.shared.component';
+import { TaskListComponent, AddNewTaskDialogComponent, EditTaskDialogComponent, DeleteTaskDialogComponent, TaskFilesDialogComponent } from './components/tasklist/task.shared.component';
+import { BankListComponent, AddNewBankDialogComponent, EditBankDialogComponent, DeleteBankDialogComponent } from './components/banklist/bank.shared.component';
+import { PersonListComponent, AddNewPersonDialogComponent, EditPersonDialogComponent, DeletePersonDialogComponent } from './components/personlist/person.shared.component';
 
 @NgModule({
 	declarations: [

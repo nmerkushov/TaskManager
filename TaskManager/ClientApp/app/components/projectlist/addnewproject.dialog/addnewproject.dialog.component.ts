@@ -1,9 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
-import { Project } from '../../shared/models/project';
-import { Bank } from '../../shared/models/bank';
-import { Person } from '../../shared/models/person';
+import { Project, Bank, Person } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'addnewproject-dialog',

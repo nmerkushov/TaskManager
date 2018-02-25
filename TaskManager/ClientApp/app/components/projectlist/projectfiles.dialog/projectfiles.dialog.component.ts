@@ -3,8 +3,7 @@ import { Http, Response } from '@angular/http';
 import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { TaskManagerService } from '../../shared/services/taskManager.service';
-import { Project, IOneProject } from '../../shared/models/project';
-import { ProjectFile } from '../../shared/models/projectfile';
+import { Project, IOneProject, ProjectFile } from '../../shared/models/shared.models';
 
 @Component({
 	selector: 'projectfiles-dialog',
